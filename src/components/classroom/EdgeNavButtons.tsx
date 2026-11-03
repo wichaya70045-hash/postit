@@ -16,7 +16,7 @@ export const CLASSROOM_WALLS: WallInfo[] = [
   { id: 'front', name: 'ด้านหน้า', icon: '🏫', sub: 'กระดานหน้าห้อง & โพสต์อิท' },
   { id: 'right', name: 'ด้านขวา', icon: '🚪', sub: 'ประตูห้องเรียน & ทางเดิน' },
   { id: 'back', name: 'ด้านหลัง', icon: '📌', sub: 'บอร์ดหลังห้อง & ฟีเจอร์ใหม่' },
-  { id: 'left', name: 'ด้านซ้าย', icon: '🪟', sub: 'หน้าต่างห้องเรียน & วิว' },
+  { id: 'left', name: 'ด้านซ้าย', icon: '💬', sub: 'บอร์ดคุยกันนิรนาม & ชุมชน' },
 ];
 
 interface EdgeNavButtonsProps {

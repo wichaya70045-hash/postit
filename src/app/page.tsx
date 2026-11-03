@@ -10,7 +10,7 @@ import { MineView } from '@/components/MineView';
 import { getOrCreateDeviceId, generateRandomToken, saveEditToken } from '@/lib/device';
 import { WallId, CLASSROOM_WALLS, EdgeNavButtons } from '@/components/classroom/EdgeNavButtons';
 import { ClassroomCompass } from '@/components/classroom/ClassroomCompass';
-import { WindowWall } from '@/components/classroom/WindowWall';
+import { CommunityWall } from '@/components/classroom/CommunityWall';
 import { DoorWall } from '@/components/classroom/DoorWall';
 import { BackWall } from '@/components/classroom/BackWall';
 import { AdminLoginModal } from '@/components/AdminLoginModal';
@@ -420,11 +420,12 @@ export default function HomePage() {
               <span>กำลังเปิดห้องเรียน...</span>
             </div>
           ) : currentWall === 'left' ? (
-            /* Left Wall: Classroom Windows */
+            /* Left Wall: Anonymous Discussion Board / Community Chat */
             <div className="classroom-wall-enter flex-1 flex flex-col">
-              <WindowWall
-                isDarkMode={isDarkMode}
+              <CommunityWall
                 onGoToBoard={() => setCurrentWall('front')}
+                isAdmin={isAdmin}
+                adminToken={adminToken}
               />
             </div>
           ) : currentWall === 'right' ? (

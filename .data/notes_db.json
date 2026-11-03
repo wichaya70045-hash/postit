@@ -1,6 +1,138 @@
 {
   "notes": [
     {
+      "id": "note_1793725019640_h73gz",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793725019372: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 6,
+      "posY": 63,
+      "rotation": 1.5,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 1,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:56:59.640Z",
+      "device_hash": "dev_VzIPTLllf8nXQOJUZTPpUgcV",
+      "edit_token_hash": "6a9168a36f53015d1b37fcd7cf84224de73cbdf4ca033ef4ab2b925f2c5d16eb"
+    },
+    {
+      "id": "note_1793725015653_xurin",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793725015374: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 5,
+      "posY": 44,
+      "rotation": 0.1,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:56:55.653Z",
+      "device_hash": "dev_USJAcdweNnCycJXvtvMNKKhN",
+      "edit_token_hash": "b23aa1151292ca0cb56c340b3647cf411c1661e0f1d9233ed7758c56fc07aa8e"
+    },
+    {
+      "id": "note_1793725011574_b916t",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793725011151: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 7,
+      "posY": 29,
+      "rotation": -1.6,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:56:51.574Z",
+      "device_hash": "dev_bmpLJravyhtgOKkktoingxvc",
+      "edit_token_hash": "e86906fa2736d3727049a640ba2a1c942aa93a4259256d22ca66261262ebb357"
+    },
+    {
+      "id": "note_1793724992676_e48am",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793724992442: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 10,
+      "posY": 11,
+      "rotation": 0.9,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:56:32.676Z",
+      "device_hash": "dev_ADieNvCW4WhCNwfeDh3KZUmC",
+      "edit_token_hash": "f8e943ea864846bd21e65df1e22c2a803e5267436a8dcdf2e7ece6eb2e0a371c"
+    },
+    {
+      "id": "note_1793724988702_eetlw",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793724988495: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 63,
+      "posY": 60,
+      "rotation": 3.2,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:56:28.702Z",
+      "device_hash": "dev_EwQwBlCbz8tps4n40FGZKFkA",
+      "edit_token_hash": "9d0a6a21c7baa7790975300491f175f932bba4faba3e26010b4641158c2ddf22"
+    },
+    {
+      "id": "note_1793724984125_5bhvh",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793724983505: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 67,
+      "posY": 46,
+      "rotation": 3.7,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:56:24.125Z",
+      "device_hash": "dev_3Uw5tIJmXDe1XEqv9IjfFSYV",
+      "edit_token_hash": "fe99b268bb9f98ae0f7e0cd54d5c32d20f5eb57af35dfad51aef729cbbff130d"
+    },
+    {
       "id": "note_1793723660585_324at",
       "kind": "text",
       "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793723660347: อยู่ด้านบนสุดเสมอ!",
@@ -227,8 +359,276 @@
       "device_hash": "dev_5zdsI9wPdlbkgCM0ufNeReQp",
       "type": "heart",
       "created_at": "2026-11-03T16:34:21.708Z"
+    },
+    {
+      "note_id": "note_1793725019640_h73gz",
+      "device_hash": "dev_mWRvK8Fm7llKUqnwziWpDCM6",
+      "type": "heart",
+      "created_at": "2026-11-03T16:57:00.699Z"
     }
   ],
   "reports": [],
-  "admin_actions": []
+  "admin_actions": [],
+  "chat_messages": [
+    {
+      "id": "chat-welcome-1",
+      "author_name": "แมวส้มข้างกระดาน",
+      "avatar": "🐱",
+      "avatar_bg": "#fed7aa",
+      "content": "ยินดีต้อนรับสู่มุมคุยกันของห้องเรียน! พื้นที่นี้คุยได้ทุกเรื่อง ไม่ต้องล็อกอิน ใส่ชื่อปลอมกับอาวตาร์ที่ชอบได้เลยนะ 🍃",
+      "created_at": "2026-11-03T14:54:46.952Z",
+      "likes": 15,
+      "liked_by": [],
+      "device_hash": "system_cat",
+      "status": "visible"
+    },
+    {
+      "id": "chat-welcome-2",
+      "author_name": "คุณกระต่ายขี้เซา",
+      "avatar": "🐰",
+      "avatar_bg": "#fbcfe8",
+      "content": "วันนี้ใครเหนื่อยกับการเรียนหรือการทำงาน แวะมาพักหายใจตรงนี้ก่อนได้นะ ทุกคนทำเต็มที่มากแล้ว 🤍✨",
+      "created_at": "2026-11-03T16:24:46.952Z",
+      "likes": 24,
+      "liked_by": [],
+      "device_hash": "system_rabbit",
+      "status": "visible"
+    },
+    {
+      "id": "chat-welcome-3",
+      "author_name": "เด็กหลังห้อง",
+      "avatar": "🦊",
+      "avatar_bg": "#bae6fd",
+      "content": "ข้อดีของบอร์ดนี้คือปลอดภัยสุดๆ ไม่มีใครรู้ว่าเราเป็นใคร คุยระบายความในใจได้สบายใจเลย 📚",
+      "created_at": "2026-11-03T16:44:46.952Z",
+      "likes": 19,
+      "liked_by": [],
+      "device_hash": "system_fox",
+      "status": "visible"
+    },
+    {
+      "id": "chat_1793724887693_xigbj",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#bae6fd",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793724887598",
+      "created_at": "2026-11-03T16:54:47.694Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_wFficVnf42eqKDO5OmGxFRR9"
+      ],
+      "device_hash": "dev_wFficVnf42eqKDO5OmGxFRR9",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793724887986_e1mvm",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#fed7aa",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793724887856",
+      "created_at": "2026-11-03T16:54:47.986Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_65wh9ntYFbXkeEUjyXeV55jJ"
+      ],
+      "device_hash": "dev_65wh9ntYFbXkeEUjyXeV55jJ",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793724887997_l7uri",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#fecdd3",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793724887860",
+      "created_at": "2026-11-03T16:54:47.997Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_T5oKhFAmzJW5mLxLdoW4XeGU"
+      ],
+      "device_hash": "dev_T5oKhFAmzJW5mLxLdoW4XeGU",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793724953028_jf5wc",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#fed7aa",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793724952951",
+      "created_at": "2026-11-03T16:55:53.028Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_cpWzj2M9RiFK5eEO5UL7TINY"
+      ],
+      "device_hash": "dev_cpWzj2M9RiFK5eEO5UL7TINY",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793724953195_lk7jh",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#e9d5ff",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793724952985",
+      "created_at": "2026-11-03T16:55:53.195Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_QBDSpJhuohPVAYSgSMGtVQmJ"
+      ],
+      "device_hash": "dev_QBDSpJhuohPVAYSgSMGtVQmJ",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793724973770_2oac5",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#ddd6fe",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793724973681",
+      "created_at": "2026-11-03T16:56:13.770Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_2oGQcZLWZowwcZgk5olD6gCm"
+      ],
+      "device_hash": "dev_2oGQcZLWZowwcZgk5olD6gCm",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793724973827_cbyuz",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#bbf7d0",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793724973736",
+      "created_at": "2026-11-03T16:56:13.827Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_kW137dJGnfZMxnALdtbet6ff"
+      ],
+      "device_hash": "dev_kW137dJGnfZMxnALdtbet6ff",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793724974022_np95e",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#e9d5ff",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793724973860",
+      "created_at": "2026-11-03T16:56:14.022Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_ZfULVGeRs8O3JSrXOSa83r3d"
+      ],
+      "device_hash": "dev_ZfULVGeRs8O3JSrXOSa83r3d",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793724984771_rbpvu",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#e9d5ff",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793724984448",
+      "created_at": "2026-11-03T16:56:24.771Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_2ZpNeIk1BAw7ao1Rmijopmbk"
+      ],
+      "device_hash": "dev_2ZpNeIk1BAw7ao1Rmijopmbk",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793724989362_lhul1",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#e9d5ff",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793724989093",
+      "created_at": "2026-11-03T16:56:29.362Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_LRRchUGRY4dBY0gGyavnAcge"
+      ],
+      "device_hash": "dev_LRRchUGRY4dBY0gGyavnAcge",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793724993367_t7pef",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#fed7aa",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793724993183",
+      "created_at": "2026-11-03T16:56:33.367Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_SjIuPMlqsuqcF0EXliGVVMsf"
+      ],
+      "device_hash": "dev_SjIuPMlqsuqcF0EXliGVVMsf",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793725011730_trta1",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#bae6fd",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793725011360",
+      "created_at": "2026-11-03T16:56:51.730Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_P8oLIUcuzamZcbERDg1aRL2I"
+      ],
+      "device_hash": "dev_P8oLIUcuzamZcbERDg1aRL2I",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793725017330_btnao",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#bbf7d0",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793725017064",
+      "created_at": "2026-11-03T16:56:57.330Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_9AwtJPAZZA8M81Bwb9I6Sv5i"
+      ],
+      "device_hash": "dev_9AwtJPAZZA8M81Bwb9I6Sv5i",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793725019957_gm27e",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#e9d5ff",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793725019745",
+      "created_at": "2026-11-03T16:56:59.957Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_4DXyS3IeOIhIrD4DV9YPszpv"
+      ],
+      "device_hash": "dev_4DXyS3IeOIhIrD4DV9YPszpv",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    }
+  ]
 }

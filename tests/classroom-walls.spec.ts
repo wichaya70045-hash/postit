@@ -64,16 +64,10 @@ test.describe('4-Wall Classroom & Top Sticky Note Stacking', () => {
     await voteBtn.click();
     await expect(page.locator('text=โหวตแล้ว')).toBeVisible();
 
-    // Rotate Right to Wall 4: Left (หน้าต่างห้องเรียน & วิว)
+    // Rotate Right to Wall 4: Left (บอร์ดคุยกันนิรนาม & ชุมชน)
     await rightNavBtn.click();
-    await expect(page.locator('text=ผนังด้านซ้าย: หน้าต่างห้องเรียนริมสนาม')).toBeVisible();
-    await expect(page.locator('text=ต้นไม้ริมหน้าต่าง')).toBeVisible();
-
-    // Test Window Toggle
-    const windowToggleBtn = page.locator('button:has-text("ปิดหน้าต่าง")');
-    await expect(windowToggleBtn).toBeVisible();
-    await windowToggleBtn.click();
-    await expect(page.locator('text=เปิดรับลม')).toBeVisible();
+    await expect(page.locator('text=ผนังด้านซ้าย: บอร์ดคุยกันนิรนาม (Community Chat)')).toBeVisible();
+    await expect(page.locator('text=ไม่ต้องล็อกอิน').first()).toBeVisible();
 
     // Rotate Left back through walls
     const leftNavBtn = page.locator('button[aria-label^="หันไปทางซ้าย ดู"]');

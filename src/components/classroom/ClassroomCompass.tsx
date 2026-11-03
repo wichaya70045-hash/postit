@@ -40,7 +40,7 @@ export const ClassroomCompass: React.FC<ClassroomCompassProps> = ({
                 <span>{wall.name}</span>
                 {isActive && (
                   <span className="hidden sm:inline text-[10px] bg-amber-900/70 text-amber-200 px-1.5 py-0.2 rounded-md ml-0.5">
-                    {wall.id === 'front' ? 'หน้าห้อง' : wall.id === 'right' ? 'ประตู' : wall.id === 'back' ? 'หลังห้อง' : 'หน้าต่าง'}
+                    {wall.id === 'front' ? 'หน้าห้อง' : wall.id === 'right' ? 'ประตู' : wall.id === 'back' ? 'หลังห้อง' : 'บอร์ดคุยกัน'}
                   </span>
                 )}
               </button>

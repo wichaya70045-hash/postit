@@ -1,4 +1,5 @@
 import { Note, ReactionType, CreateNotePayload } from '@/types/note';
+import { ChatMessage, CreateChatMessagePayload } from '@/types/chat';
 import { checkSafety } from './safety';
 import crypto from 'crypto';
 import fs from 'fs';
@@ -19,6 +20,48 @@ interface LocalDBData {
   reports: Array<{ id: string; note_id: string; device_hash: string; reason: string; created_at: string }>;
   admin_actions: Array<{ id: string; admin_id: string; note_id: string; action: string; reason?: string; created_at: string }>;
   announcement?: string;
+  chat_messages?: ChatMessage[];
+}
+
+function getInitialSampleChat(): ChatMessage[] {
+  return [
+    {
+      id: 'chat-welcome-1',
+      author_name: 'แมวส้มข้างกระดาน',
+      avatar: '🐱',
+      avatar_bg: '#fed7aa',
+      content: 'ยินดีต้อนรับสู่มุมคุยกันของห้องเรียน! พื้นที่นี้คุยได้ทุกเรื่อง ไม่ต้องล็อกอิน ใส่ชื่อปลอมกับอาวตาร์ที่ชอบได้เลยนะ 🍃',
+      created_at: new Date(Date.now() - 3600000 * 2).toISOString(),
+      likes: 15,
+      liked_by: [],
+      device_hash: 'system_cat',
+      status: 'visible',
+    },
+    {
+      id: 'chat-welcome-2',
+      author_name: 'คุณกระต่ายขี้เซา',
+      avatar: '🐰',
+      avatar_bg: '#fbcfe8',
+      content: 'วันนี้ใครเหนื่อยกับการเรียนหรือการทำงาน แวะมาพักหายใจตรงนี้ก่อนได้นะ ทุกคนทำเต็มที่มากแล้ว 🤍✨',
+      created_at: new Date(Date.now() - 1800000).toISOString(),
+      likes: 24,
+      liked_by: [],
+      device_hash: 'system_rabbit',
+      status: 'visible',
+    },
+    {
+      id: 'chat-welcome-3',
+      author_name: 'เด็กหลังห้อง',
+      avatar: '🦊',
+      avatar_bg: '#bae6fd',
+      content: 'ข้อดีของบอร์ดนี้คือปลอดภัยสุดๆ ไม่มีใครรู้ว่าเราเป็นใคร คุยระบายความในใจได้สบายใจเลย 📚',
+      created_at: new Date(Date.now() - 600000).toISOString(),
+      likes: 19,
+      liked_by: [],
+      device_hash: 'system_fox',
+      status: 'visible',
+    },
+  ];
 }
 
 function getInitialSampleNotes(): Array<Note & { edit_token_hash: string }> {
@@ -101,12 +144,18 @@ function loadLocalDB(): LocalDBData {
         reactions: [],
         reports: [],
         admin_actions: [],
+        chat_messages: getInitialSampleChat(),
       };
       fs.writeFileSync(LOCAL_STORAGE_FILE, JSON.stringify(initial, null, 2), 'utf-8');
       return initial;
     }
     const raw = fs.readFileSync(LOCAL_STORAGE_FILE, 'utf-8');
-    return JSON.parse(raw);
+    const parsed: LocalDBData = JSON.parse(raw);
+    if (!parsed.chat_messages || parsed.chat_messages.length === 0) {
+      parsed.chat_messages = getInitialSampleChat();
+      saveLocalDB(parsed);
+    }
+    return parsed;
   } catch (e) {
     console.error('Error loading local DB', e);
     return {
@@ -114,6 +163,7 @@ function loadLocalDB(): LocalDBData {
       reactions: [],
       reports: [],
       admin_actions: [],
+      chat_messages: getInitialSampleChat(),
     };
   }
 }
@@ -376,5 +426,100 @@ export const db = {
     data.reports = [];
     saveLocalDB(data);
     return data.notes.map(({ edit_token_hash, ...p }) => p);
+  },
+
+  // --- Community Chat Methods (100% Anonymous & Safe) ---
+  getChatMessages(limit = 60): ChatMessage[] {
+    const data = loadLocalDB();
+    const messages = (data.chat_messages || []).filter((m) => m.status === 'visible');
+    return messages.slice(-limit);
+  },
+
+  createChatMessage(payload: CreateChatMessagePayload): { message: ChatMessage; isCrisis: boolean } {
+    const data = loadLocalDB();
+    if (!data.chat_messages) data.chat_messages = [];
+
+    const textToCheck = `${payload.author_name} ${payload.content}`;
+    const safety = checkSafety(textToCheck);
+    if (safety.hasPII) {
+      throw new Error(safety.piiReasons[0] || 'ข้อความของคุณมีเบอร์โทรศัพท์หรือข้อมูลติดต่อส่วนตัว เพื่อความปลอดภัยของผู้เขียนกรุณาอย่าเปิดเผยข้อมูลติดต่อ');
+    }
+    if (safety.isAbusive) {
+      throw new Error(safety.abusiveReasons[0] || 'ข้อความมีถ้อยคำที่ไม่เหมาะสม เพื่อรักษาบรรยากาศที่อบอุ่นของห้องเรียน');
+    }
+
+    const newMessage: ChatMessage = {
+      id: 'chat_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+      author_name: (payload.author_name || 'เพื่อนร่วมห้อง').trim().slice(0, 30),
+      avatar: payload.avatar || '🐱',
+      avatar_bg: payload.avatar_bg || '#fed7aa',
+      content: payload.content.trim().slice(0, 500),
+      created_at: new Date().toISOString(),
+      likes: 0,
+      liked_by: [],
+      device_hash: payload.device_hash,
+      status: 'visible',
+      risk_flag: safety.isCrisis,
+      report_count: 0,
+    };
+
+    data.chat_messages.push(newMessage);
+    if (data.chat_messages.length > 200) {
+      data.chat_messages = data.chat_messages.slice(-200);
+    }
+    saveLocalDB(data);
+
+    return { message: newMessage, isCrisis: safety.isCrisis };
+  },
+
+  likeChatMessage(id: string, deviceHash: string): { likes: number; hasLiked: boolean } {
+    const data = loadLocalDB();
+    const message = (data.chat_messages || []).find((m) => m.id === id);
+    if (!message) throw new Error('ไม่พบข้อความ');
+
+    if (!message.liked_by) message.liked_by = [];
+    const index = message.liked_by.indexOf(deviceHash);
+    let hasLiked = false;
+
+    if (index >= 0) {
+      message.liked_by.splice(index, 1);
+      message.likes = Math.max(0, message.likes - 1);
+      hasLiked = false;
+    } else {
+      message.liked_by.push(deviceHash);
+      message.likes += 1;
+      hasLiked = true;
+    }
+
+    saveLocalDB(data);
+    return { likes: message.likes, hasLiked };
+  },
+
+  deleteChatMessage(id: string, deviceHash: string, isAdmin = false): boolean {
+    const data = loadLocalDB();
+    const index = (data.chat_messages || []).findIndex((m) => m.id === id);
+    if (index === -1) throw new Error('ไม่พบข้อความ');
+
+    const message = data.chat_messages![index];
+    if (!isAdmin && message.device_hash !== deviceHash) {
+      throw new Error('คุณสามารถลบได้เฉพาะข้อความที่คุณเขียนเท่านั้น');
+    }
+
+    data.chat_messages!.splice(index, 1);
+    saveLocalDB(data);
+    return true;
+  },
+
+  reportChatMessage(id: string, deviceHash: string, reason = 'เนื้อหาไม่เหมาะสม'): boolean {
+    const data = loadLocalDB();
+    const message = (data.chat_messages || []).find((m) => m.id === id);
+    if (!message) throw new Error('ไม่พบข้อความ');
+
+    message.report_count = (message.report_count || 0) + 1;
+    if (message.report_count >= 3) {
+      message.status = 'hidden';
+    }
+    saveLocalDB(data);
+    return true;
   },
 };
