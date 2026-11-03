@@ -190,14 +190,6 @@ export const CommunityWall: React.FC<CommunityWallProps> = ({
       return;
     }
 
-    if (safety.isAbusive) {
-      setErrorNotice(
-        safety.abusiveReasons[0] ||
-          'ข้อความมีถ้อยคำที่ไม่เหมาะสม เพื่อรักษาบรรยากาศที่อบอุ่นของห้องเรียน'
-      );
-      return;
-    }
-
     setIsSubmitting(true);
     try {
       const res = await fetch('/api/chat', {

@@ -39,6 +39,7 @@ export const AdminDashboardModal: React.FC<AdminDashboardModalProps> = ({
   const [loading, setLoading] = useState(false);
   const [announcementText, setAnnouncementText] = useState('เวรประจำวัน: ช่วยกันส่งต่อรอยยิ้ม');
   const [announcementMsg, setAnnouncementMsg] = useState<string | null>(null);
+  const [allowProfanity, setAllowProfanity] = useState(false);
 
   const fetchAdminData = async () => {
     setLoading(true);
@@ -55,6 +56,16 @@ export const AdminDashboardModal: React.FC<AdminDashboardModalProps> = ({
         setReported(data.queue.reported || []);
       }
     } catch {}
+    try {
+      const sRes = await fetch('/api/admin/settings', {
+        headers: { 'x-admin-key': adminToken },
+      });
+      const sData = await sRes.json();
+      if (sData.success) {
+        if (sData.announcement) setAnnouncementText(sData.announcement);
+        if (typeof sData.allowProfanity === 'boolean') setAllowProfanity(sData.allowProfanity);
+      }
+    } catch {}
     setLoading(false);
   };
 
@@ -68,13 +79,18 @@ export const AdminDashboardModal: React.FC<AdminDashboardModalProps> = ({
 
   const handleAction = async (noteId: string, action: 'hide' | 'restore' | 'delete') => {
     try {
+      const token =
+        adminToken ||
+        (typeof window !== 'undefined'
+          ? localStorage.getItem('yanin_admin_token') || localStorage.getItem('yanin_admin_key') || 'admin1234'
+          : 'admin1234');
       const res = await fetch('/api/admin/action', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-admin-key': adminToken,
+          'x-admin-key': token,
         },
-        body: JSON.stringify({ note_id: noteId, action }),
+        body: JSON.stringify({ note_id: noteId, action, admin_key: token }),
       });
       const data = await res.json();
       if (data.success) {
@@ -127,6 +143,27 @@ export const AdminDashboardModal: React.FC<AdminDashboardModalProps> = ({
         if (onAnnouncementUpdated) onAnnouncementUpdated(announcementText);
         setTimeout(() => setAnnouncementMsg(null), 3000);
       }
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
+
+  const handleToggleProfanity = async (nextVal: boolean) => {
+    setAllowProfanity(nextVal);
+    try {
+      const token =
+        adminToken ||
+        (typeof window !== 'undefined'
+          ? localStorage.getItem('yanin_admin_token') || localStorage.getItem('yanin_admin_key') || 'admin1234'
+          : 'admin1234');
+      await fetch('/api/admin/settings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': token,
+        },
+        body: JSON.stringify({ action: 'set_profanity', allow_profanity: nextVal, admin_key: token }),
+      });
     } catch (err: any) {
       alert(err.message);
     }
@@ -262,6 +299,31 @@ export const AdminDashboardModal: React.FC<AdminDashboardModalProps> = ({
                 </div>
               </form>
 
+              {/* Profanity Policy Toggle Card */}
+              <div className="p-4 bg-white dark:bg-stone-800 rounded-2xl border border-stone-200 dark:border-stone-700 flex items-center justify-between gap-3">
+                <div>
+                  <h4 className="text-xs font-bold text-amber-950 dark:text-amber-200 flex items-center gap-1.5">
+                    <span>💬 นโยบายการพิมพ์คำไม่สุภาพ</span>
+                  </h4>
+                  <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5">
+                    {allowProfanity
+                      ? 'สถานะ: อนุญาตให้พิมพ์คำไม่สุภาพได้ (ผู้ใช้สามารถระบายอารมณ์ได้ แล้วแอดมินคอยดูแล)'
+                      : 'สถานะ: บล็อกคำไม่สุภาพ (ไม่อนุญาตให้พิมพ์คำหยาบคาย)'}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleToggleProfanity(!allowProfanity)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shadow-xs active:scale-95 shrink-0 ${
+                    allowProfanity
+                      ? 'bg-amber-600 text-white'
+                      : 'bg-stone-200 text-stone-700 dark:bg-stone-700 dark:text-stone-200'
+                  }`}
+                >
+                  {allowProfanity ? 'เปิดให้พิมพ์ได้ ✅' : 'บล็อกคำหยาบ 🚫'}
+                </button>
+              </div>
+
               {/* Reset Chalkboard Button */}
               <div className="p-4 bg-amber-50 dark:bg-amber-950/20 rounded-2xl border border-amber-300/40 flex items-center justify-between gap-3">
                 <div>
@@ -354,10 +416,11 @@ export const AdminDashboardModal: React.FC<AdminDashboardModalProps> = ({
                           handleAction(note.id, 'delete');
                         }
                       }}
-                      className="p-1 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg"
+                      className="px-2.5 py-1 bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-300 dark:hover:bg-rose-900/60 rounded-lg text-[11px] font-semibold flex items-center gap-1 border border-rose-200 dark:border-rose-800 transition-colors"
                       title="ลบถาวร"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      <Trash2 className="w-3 h-3" />
+                      <span>ลบถาวร</span>
                     </button>
                   </div>
                 </div>

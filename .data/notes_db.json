@@ -1,6 +1,116 @@
 {
   "notes": [
     {
+      "id": "note_1793726288093_twlnu",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793726287887: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 36,
+      "posY": 63,
+      "rotation": -2.4,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T17:18:08.093Z",
+      "device_hash": "dev_sXfMOWYdyF2pze4xUWJUWfPl",
+      "edit_token_hash": "f6fed4dad5a1881c53e999788bb244c2879e590f724b45cdd102e7721935b540"
+    },
+    {
+      "id": "note_1793726283301_dacze",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793726282842: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 40,
+      "posY": 62,
+      "rotation": 2.5,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T17:18:03.301Z",
+      "device_hash": "dev_NrG7J64ndOSDk4MOmsVpcCT8",
+      "edit_token_hash": "0e5b753587065c4cc89891036a6b4cc295399f5ed9417a62de12b0fc712e80ed"
+    },
+    {
+      "id": "note_1793726277792_cmb4i",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793726277388: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 39,
+      "posY": 45,
+      "rotation": -4.7,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T17:17:57.793Z",
+      "device_hash": "dev_sYBU2Pb6Xz3jOX7xpkrfdbAZ",
+      "edit_token_hash": "d2d026b14d9bff7049cf0d07e5c33912492ef91b25b9c5b1dcc4bb9541a4b2ea"
+    },
+    {
+      "id": "note_1793726217927_k57jh",
+      "kind": "text",
+      "body": "วันนี้แม่งเหนื่อยสัสๆ 1793726217231",
+      "color": "#fef08a",
+      "posX": 40,
+      "posY": 11,
+      "rotation": 0.1,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T17:16:57.928Z",
+      "device_hash": "dev_yC7VSI1c8nECed2hTKtepFt5",
+      "edit_token_hash": "dee9fda2638f2722dd850a5266af78aaf971285a8a0d141cb201fca362386b2d"
+    },
+    {
+      "id": "note_1793726159769_64wp0",
+      "kind": "text",
+      "body": "วันนี้แม่งเหนื่อยสัสๆ 1793726159081",
+      "color": "#fef08a",
+      "posX": 40,
+      "posY": 11,
+      "rotation": -2.6,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T17:15:59.769Z",
+      "device_hash": "dev_vtEPzgpLWpMYVvNavO7xHphi",
+      "edit_token_hash": "bc3948e8699d3ac53e358dd35f383522dc276473a16d53ad9d429aec82858959"
+    },
+    {
       "id": "note_1793725019640_h73gz",
       "kind": "text",
       "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793725019372: อยู่ด้านบนสุดเสมอ!",
@@ -265,28 +375,6 @@
       "edit_token_hash": "805c7ac7becc5cab739d47f29f19c5fd87631e225be6c0d09e0d1c6afa182bf7"
     },
     {
-      "id": "note-welcome-1",
-      "kind": "text",
-      "body": "ยินดีต้อนรับสู่ห้องเรียน Yanin 🏫 กระดานดำเข้มขรึมสไตล์โรงเรียนไทย! เขียนหรือวาดลงโพสต์อิทแล้วลากมาแปะได้เลยนะ",
-      "color": "#fef08a",
-      "posX": 12,
-      "posY": 10,
-      "rotation": -2.5,
-      "status": "visible",
-      "risk_flag": false,
-      "report_count": 0,
-      "reaction_counts": {
-        "heart": 24,
-        "hug": 12,
-        "sparkle": 28,
-        "cheer": 18,
-        "idea": 15
-      },
-      "created_at": "2026-11-03T14:31:11.028Z",
-      "device_hash": "system_dev",
-      "edit_token_hash": "dd57f7120dded08ff7f58674e88da6041cf37d7c9dd2b2995153a0c98f447a91"
-    },
-    {
       "id": "note-sample-2",
       "kind": "text",
       "body": "การบ้านวันนี้: อย่าลืมใจดีกับตัวเองเยอะๆ และยิ้มให้สดใสก่อนนอนนะ ☀️✨",
@@ -368,7 +456,92 @@
     }
   ],
   "reports": [],
-  "admin_actions": [],
+  "admin_actions": [
+    {
+      "id": "adm_1793725478704",
+      "admin_id": "admin_user",
+      "note_id": "note-welcome-1",
+      "action": "delete",
+      "created_at": "2026-11-03T17:04:38.704Z"
+    },
+    {
+      "id": "adm_1793726098932",
+      "admin_id": "admin_user",
+      "note_id": "note_1793726098053_sg1g8",
+      "action": "delete",
+      "created_at": "2026-11-03T17:14:58.932Z"
+    },
+    {
+      "id": "adm_1793726160715",
+      "admin_id": "admin_user",
+      "note_id": "note_1793726159694_e7tn2",
+      "action": "delete",
+      "created_at": "2026-11-03T17:16:00.715Z"
+    },
+    {
+      "id": "adm_1793726161022",
+      "admin_id": "admin_user",
+      "note_id": "note_1793726159963_9l51f",
+      "action": "delete",
+      "created_at": "2026-11-03T17:16:01.022Z"
+    },
+    {
+      "id": "adm_1793726218920",
+      "admin_id": "admin_user",
+      "note_id": "note_1793726217987_3636g",
+      "action": "delete",
+      "created_at": "2026-11-03T17:16:58.920Z"
+    },
+    {
+      "id": "adm_1793726219345",
+      "admin_id": "admin_user",
+      "note_id": "note_1793726218156_pl1rg",
+      "action": "delete",
+      "created_at": "2026-11-03T17:16:59.345Z"
+    },
+    {
+      "id": "adm_1793726262917",
+      "admin_id": "admin_user",
+      "note_id": "note_1793726262225_jqfiu",
+      "action": "delete",
+      "created_at": "2026-11-03T17:17:42.917Z"
+    },
+    {
+      "id": "adm_1793726263240",
+      "admin_id": "admin_user",
+      "note_id": "note_1793726262265_o6you",
+      "action": "delete",
+      "created_at": "2026-11-03T17:17:43.240Z"
+    },
+    {
+      "id": "adm_1793726263540",
+      "admin_id": "admin_user",
+      "note_id": "note_1793726262435_qsyky",
+      "action": "delete",
+      "created_at": "2026-11-03T17:17:43.540Z"
+    },
+    {
+      "id": "adm_1793726279584",
+      "admin_id": "admin_user",
+      "note_id": "note_1793726277041_7aula",
+      "action": "delete",
+      "created_at": "2026-11-03T17:17:59.584Z"
+    },
+    {
+      "id": "adm_1793726283858",
+      "admin_id": "admin_user",
+      "note_id": "note_1793726282734_z7l8b",
+      "action": "delete",
+      "created_at": "2026-11-03T17:18:03.858Z"
+    },
+    {
+      "id": "adm_1793726287941",
+      "admin_id": "admin_user",
+      "note_id": "note_1793726286666_76ki6",
+      "action": "delete",
+      "created_at": "2026-11-03T17:18:07.941Z"
+    }
+  ],
   "chat_messages": [
     {
       "id": "chat-welcome-1",
@@ -629,6 +802,55 @@
       "status": "visible",
       "risk_flag": false,
       "report_count": 0
+    },
+    {
+      "id": "chat_1793726278295_pbmtl",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#fecdd3",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793726277979",
+      "created_at": "2026-11-03T17:17:58.295Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_RYlUmx2zq3RSSOZJNplAebPS"
+      ],
+      "device_hash": "dev_RYlUmx2zq3RSSOZJNplAebPS",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793726284408_7945j",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#fef08a",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793726283930",
+      "created_at": "2026-11-03T17:18:04.408Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_zeO0wpaUXxzwJMJdweOsuROa"
+      ],
+      "device_hash": "dev_zeO0wpaUXxzwJMJdweOsuROa",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793726288496_h8rcl",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#fbcfe8",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793726288260",
+      "created_at": "2026-11-03T17:18:08.496Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_DMkMx5fMJqsTloERAON9DFYD"
+      ],
+      "device_hash": "dev_DMkMx5fMJqsTloERAON9DFYD",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
     }
-  ]
+  ],
+  "allow_profanity": true
 }

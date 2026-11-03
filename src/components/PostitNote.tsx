@@ -3,7 +3,7 @@
 import React from 'react';
 import { Note } from '@/types/note';
 import { SvgStrokes } from './SvgStrokes';
-import { HeartHandshake } from 'lucide-react';
+import { HeartHandshake, Trash2 } from 'lucide-react';
 
 interface PostitNoteProps {
   note: Note;
@@ -13,6 +13,8 @@ interface PostitNoteProps {
   onDragStart?: (e: React.DragEvent) => void;
   className?: string;
   isFalling?: boolean;
+  isAdmin?: boolean;
+  onAdminDelete?: (id: string) => void;
 }
 
 function formatRelativeTime(dateString: string): string {
@@ -32,6 +34,8 @@ export const PostitNote: React.FC<PostitNoteProps> = ({
   onDragStart,
   className = '',
   isFalling = false,
+  isAdmin = false,
+  onAdminDelete,
 }) => {
   const totalReactions =
     (note.reaction_counts?.heart || 0) +
@@ -83,6 +87,24 @@ export const PostitNote: React.FC<PostitNoteProps> = ({
         className="absolute -top-1 sm:-top-1.5 left-1/2 -translate-x-1/2 w-8 sm:w-12 md:w-14 h-2 sm:h-3 backdrop-blur-[1px] rotate-[-2deg] rounded-xs shadow-xs pointer-events-none opacity-85"
         style={{ backgroundColor: 'rgba(255, 255, 255, 0.45)' }}
       />
+
+      {/* Admin Quick Delete Button */}
+      {isAdmin && onAdminDelete && (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (window.confirm('คุณเป็นครูเวร (Admin): ต้องการลบโพสต์อิทแผ่นนี้ใช่หรือไม่?')) {
+              onAdminDelete(note.id);
+            }
+          }}
+          className="absolute top-1 left-1 z-30 p-1 sm:p-1.5 bg-rose-600/90 hover:bg-rose-600 text-white rounded-md shadow-md active:scale-90 transition-all opacity-85 group-hover:opacity-100"
+          title="ลบโพสต์นี้ (Admin)"
+          aria-label="ลบโพสต์แผ่นนี้"
+        >
+          <Trash2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+        </button>
+      )}
 
       {/* Header: Relative Time */}
       <div className="flex items-center justify-end text-[8px] sm:text-[10px] text-stone-700/80 mb-0.5 sm:mb-1 z-10 font-sans">

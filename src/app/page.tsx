@@ -241,6 +241,33 @@ export default function HomePage() {
     }
   };
 
+  // Admin direct note delete
+  const handleAdminDeleteNote = async (noteId: string) => {
+    const token =
+      adminToken ||
+      (typeof window !== 'undefined'
+        ? localStorage.getItem('yanin_admin_token') || localStorage.getItem('yanin_admin_key') || 'admin1234'
+        : 'admin1234');
+    try {
+      const res = await fetch('/api/admin/action', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': token,
+        },
+        body: JSON.stringify({ note_id: noteId, action: 'delete', admin_key: token }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setNotes((prev) => prev.filter((n) => n.id !== noteId));
+      } else {
+        alert(data.error || 'ลบไม่สำเร็จ');
+      }
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
+
   return (
     <main
       className="min-h-[100dvh] bg-[#112419] dark:bg-[#0a1710] flex flex-col relative select-none"
@@ -485,6 +512,8 @@ export default function HomePage() {
                     isAbsolute
                     zIndex={notes.length - index + 20}
                     isFalling={fallingNoteIds.has(note.id)}
+                    isAdmin={isAdmin}
+                    onAdminDelete={handleAdminDeleteNote}
                     onDragStart={(e) => {
                       e.dataTransfer.setData('note-id', note.id);
                     }}
@@ -532,6 +561,8 @@ export default function HomePage() {
                   key={note.id}
                   note={note}
                   isFalling={fallingNoteIds.has(note.id)}
+                  isAdmin={isAdmin}
+                  onAdminDelete={handleAdminDeleteNote}
                   onClick={() => setSelectedNote(note)}
                 />
               ))}

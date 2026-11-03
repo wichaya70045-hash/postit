@@ -20,6 +20,7 @@ interface LocalDBData {
   reports: Array<{ id: string; note_id: string; device_hash: string; reason: string; created_at: string }>;
   admin_actions: Array<{ id: string; admin_id: string; note_id: string; action: string; reason?: string; created_at: string }>;
   announcement?: string;
+  allow_profanity?: boolean;
   chat_messages?: ChatMessage[];
 }
 
@@ -151,6 +152,10 @@ function loadLocalDB(): LocalDBData {
     }
     const raw = fs.readFileSync(LOCAL_STORAGE_FILE, 'utf-8');
     const parsed: LocalDBData = JSON.parse(raw);
+    if (parsed.allow_profanity === undefined) {
+      parsed.allow_profanity = true;
+      saveLocalDB(parsed);
+    }
     if (!parsed.chat_messages || parsed.chat_messages.length === 0) {
       parsed.chat_messages = getInitialSampleChat();
       saveLocalDB(parsed);
@@ -216,7 +221,7 @@ export const db = {
     if (safety.hasPII) {
       throw new Error(`ไม่อนุญาตให้ใส่ข้อมูลส่วนตัว: ${safety.piiReasons.join(', ')}`);
     }
-    if (safety.isAbusive) {
+    if (safety.isAbusive && data.allow_profanity === false) {
       throw new Error(`ข้อความของคุณมีถ้อยคำที่ไม่เหมาะสม โปรดปรับแก้ไขก่อนแปะนะ`);
     }
 
@@ -347,12 +352,17 @@ export const db = {
     return { hidden };
   },
 
-  async deleteNote(noteId: string, editToken: string): Promise<boolean> {
+  async deleteNote(noteId: string, editToken?: string, isAdmin = false): Promise<boolean> {
     const data = loadLocalDB();
-    const hashed = sha256(editToken);
-    const index = data.notes.findIndex((n) => n.id === noteId && n.edit_token_hash === hashed);
+    let index = -1;
+    if (isAdmin) {
+      index = data.notes.findIndex((n) => n.id === noteId);
+    } else if (editToken) {
+      const hashed = sha256(editToken);
+      index = data.notes.findIndex((n) => n.id === noteId && n.edit_token_hash === hashed);
+    }
     if (index === -1) {
-      throw new Error('คุณไม่มีสิทธิ์ลบโพสต์นี้หรือไม่พบโพสต์');
+      throw new Error('ไม่พบโพสต์หรือคุณไม่มีสิทธิ์ลบโพสต์นี้');
     }
     data.notes.splice(index, 1);
     saveLocalDB(data);
@@ -419,6 +429,18 @@ export const db = {
     return data.announcement;
   },
 
+  getProfanityAllowed(): boolean {
+    const data = loadLocalDB();
+    return !!data.allow_profanity;
+  },
+
+  setProfanityAllowed(allowed: boolean): boolean {
+    const data = loadLocalDB();
+    data.allow_profanity = allowed;
+    saveLocalDB(data);
+    return data.allow_profanity;
+  },
+
   resetBoardToDefault(): Note[] {
     const data = loadLocalDB();
     data.notes = getInitialSampleNotes();
@@ -444,7 +466,7 @@ export const db = {
     if (safety.hasPII) {
       throw new Error(safety.piiReasons[0] || 'ข้อความของคุณมีเบอร์โทรศัพท์หรือข้อมูลติดต่อส่วนตัว เพื่อความปลอดภัยของผู้เขียนกรุณาอย่าเปิดเผยข้อมูลติดต่อ');
     }
-    if (safety.isAbusive) {
+    if (safety.isAbusive && data.allow_profanity === false) {
       throw new Error(safety.abusiveReasons[0] || 'ข้อความมีถ้อยคำที่ไม่เหมาะสม เพื่อรักษาบรรยากาศที่อบอุ่นของห้องเรียน');
     }
 

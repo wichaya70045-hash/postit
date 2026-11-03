@@ -87,11 +87,6 @@ export const ComposerModal: React.FC<ComposerModalProps> = ({
       return { allowed: false, isCrisis: false };
     }
 
-    if (safety.isAbusive) {
-      setPiiError('ข้อความมีคำที่ไม่สุภาพ โปรดปรับเปลี่ยนก่อนแปะนะ');
-      return { allowed: false, isCrisis: false };
-    }
-
     setPiiError(null);
     return { allowed: true, isCrisis: safety.isCrisis };
   };
