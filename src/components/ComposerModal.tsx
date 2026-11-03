@@ -92,6 +92,7 @@ export const ComposerModal: React.FC<ComposerModalProps> = ({
   };
 
   const executeSubmit = async (forcePostAfterCrisis = false) => {
+    if (isSubmitting) return;
     const safety = checkContentSafety();
     if (!safety.allowed) return;
 

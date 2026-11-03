@@ -10,9 +10,10 @@ import { Heart, Moon, Sun, Trash2, HeartHandshake, ShieldCheck, School } from 'l
 interface MineViewProps {
   onSelectNote: (note: Note) => void;
   onOpenComposer: () => void;
+  onNoteDeleted?: (noteId: string) => void;
 }
 
-export const MineView: React.FC<MineViewProps> = ({ onSelectNote, onOpenComposer }) => {
+export const MineView: React.FC<MineViewProps> = ({ onSelectNote, onOpenComposer, onNoteDeleted }) => {
   const [myNotes, setMyNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -62,22 +63,19 @@ export const MineView: React.FC<MineViewProps> = ({ onSelectNote, onOpenComposer
     if (!window.confirm('คุณต้องการลบโพสต์อิทนี้ใช่ไหม?')) return;
 
     const token = getEditToken(noteId);
-    if (!token) {
-      alert('ไม่พบโทเคนยืนยันสำหรับโพสต์นี้');
-      return;
-    }
+    const deviceId = getOrCreateDeviceId();
 
     try {
+      if (onNoteDeleted) onNoteDeleted(noteId);
+      setMyNotes((prev) => prev.filter((n) => n.id !== noteId));
+      removeEditToken(noteId);
+
       const res = await fetch(`/api/notes/${noteId}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ edit_token: token }),
+        body: JSON.stringify({ edit_token: token || undefined, device_hash: deviceId }),
       });
-      const data = await res.json();
-      if (data.success) {
-        removeEditToken(noteId);
-        setMyNotes((prev) => prev.filter((n) => n.id !== noteId));
-      }
+      await res.json();
     } catch {}
   };
 

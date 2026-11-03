@@ -22,6 +22,7 @@ interface LocalDBData {
   announcement?: string;
   allow_profanity?: boolean;
   chat_messages?: ChatMessage[];
+  deleted_note_ids?: string[];
 }
 
 function getInitialSampleChat(): ChatMessage[] {
@@ -146,12 +147,34 @@ function loadLocalDB(): LocalDBData {
         reports: [],
         admin_actions: [],
         chat_messages: getInitialSampleChat(),
+        deleted_note_ids: [],
       };
-      fs.writeFileSync(LOCAL_STORAGE_FILE, JSON.stringify(initial, null, 2), 'utf-8');
+      saveLocalDB(initial);
       return initial;
     }
     const raw = fs.readFileSync(LOCAL_STORAGE_FILE, 'utf-8');
+    if (!raw.trim()) {
+      return {
+        notes: [],
+        reactions: [],
+        reports: [],
+        admin_actions: [],
+        chat_messages: getInitialSampleChat(),
+        deleted_note_ids: [],
+      };
+    }
     const parsed: LocalDBData = JSON.parse(raw);
+    if (!parsed.deleted_note_ids) {
+      parsed.deleted_note_ids = [];
+    }
+    if (!parsed.notes) {
+      parsed.notes = [];
+    }
+    // Permanently filter out any deleted note IDs
+    if (parsed.deleted_note_ids.length > 0) {
+      const deletedSet = new Set(parsed.deleted_note_ids);
+      parsed.notes = parsed.notes.filter((n) => !deletedSet.has(n.id));
+    }
     if (parsed.allow_profanity === undefined) {
       parsed.allow_profanity = true;
       saveLocalDB(parsed);
@@ -164,11 +187,12 @@ function loadLocalDB(): LocalDBData {
   } catch (e) {
     console.error('Error loading local DB', e);
     return {
-      notes: getInitialSampleNotes(),
+      notes: [],
       reactions: [],
       reports: [],
       admin_actions: [],
       chat_messages: getInitialSampleChat(),
+      deleted_note_ids: [],
     };
   }
 }
@@ -178,7 +202,23 @@ function saveLocalDB(data: LocalDBData): void {
     if (!fs.existsSync(LOCAL_STORAGE_DIR)) {
       fs.mkdirSync(LOCAL_STORAGE_DIR, { recursive: true });
     }
-    fs.writeFileSync(LOCAL_STORAGE_FILE, JSON.stringify(data, null, 2), 'utf-8');
+    if (!data.deleted_note_ids) {
+      data.deleted_note_ids = [];
+    }
+    // Ensure deleted notes are purged before writing
+    if (data.deleted_note_ids.length > 0) {
+      const deletedSet = new Set(data.deleted_note_ids);
+      data.notes = data.notes.filter((n) => !deletedSet.has(n.id));
+    }
+    const tempFile = path.join(
+      LOCAL_STORAGE_DIR,
+      `notes_db_${Date.now()}_${Math.random().toString(36).slice(2, 6)}.tmp`
+    );
+    fs.writeFileSync(tempFile, JSON.stringify(data, null, 2), 'utf-8');
+    fs.copyFileSync(tempFile, LOCAL_STORAGE_FILE);
+    try {
+      fs.unlinkSync(tempFile);
+    } catch {}
   } catch (e) {
     console.error('Error saving local DB', e);
   }
@@ -366,15 +406,26 @@ export const db = {
     if (index === -1) {
       throw new Error('ไม่พบโพสต์หรือคุณไม่มีสิทธิ์ลบโพสต์นี้');
     }
-    data.notes.splice(index, 1);
+
+    if (!data.deleted_note_ids) {
+      data.deleted_note_ids = [];
+    }
+    if (!data.deleted_note_ids.includes(noteId)) {
+      data.deleted_note_ids.push(noteId);
+    }
+    data.notes = data.notes.filter((n) => n.id !== noteId);
+    data.reactions = (data.reactions || []).filter((r) => r.note_id !== noteId);
+    data.reports = (data.reports || []).filter((r) => r.note_id !== noteId);
+
     saveLocalDB(data);
     return true;
   },
 
   async getMyNotes(deviceHash: string, noteIds: string[]): Promise<Note[]> {
     const data = loadLocalDB();
+    const deletedSet = new Set(data.deleted_note_ids || []);
     const myNotes = data.notes.filter(
-      (n) => (n.device_hash === deviceHash || noteIds.includes(n.id)) && n.status !== 'hidden'
+      (n) => !deletedSet.has(n.id) && (n.device_hash === deviceHash || noteIds.includes(n.id)) && n.status !== 'hidden'
     );
     myNotes.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
     return myNotes.map(({ edit_token_hash, ...publicNote }) => publicNote);
@@ -382,28 +433,39 @@ export const db = {
 
   async getAdminQueue(): Promise<{ flagged: Note[]; reported: Note[]; allNotes: Note[] }> {
     const data = loadLocalDB();
-    const flagged = data.notes.filter((n) => n.risk_flag);
-    const reported = data.notes.filter((n) => n.report_count > 0);
+    const deletedSet = new Set(data.deleted_note_ids || []);
+    const activeNotes = data.notes.filter((n) => !deletedSet.has(n.id));
+    const flagged = activeNotes.filter((n) => n.risk_flag);
+    const reported = activeNotes.filter((n) => n.report_count > 0);
     return {
       flagged: flagged.map(({ edit_token_hash, ...p }) => p),
       reported: reported.map(({ edit_token_hash, ...p }) => p),
-      allNotes: data.notes.map(({ edit_token_hash, ...p }) => p),
+      allNotes: activeNotes.map(({ edit_token_hash, ...p }) => p),
     };
   },
 
   async performAdminAction(adminId: string, noteId: string, action: 'hide' | 'restore' | 'delete', reason?: string): Promise<boolean> {
     const data = loadLocalDB();
     const note = data.notes.find((n) => n.id === noteId);
-    if (!note) throw new Error('ไม่พบโพสต์');
+    if (!note && action !== 'delete') throw new Error('ไม่พบโพสต์');
 
     if (action === 'hide') {
-      note.status = 'hidden';
+      if (note) note.status = 'hidden';
     } else if (action === 'restore') {
-      note.status = 'visible';
-      note.report_count = 0;
+      if (note) {
+        note.status = 'visible';
+        note.report_count = 0;
+      }
     } else if (action === 'delete') {
-      const idx = data.notes.findIndex((n) => n.id === noteId);
-      if (idx !== -1) data.notes.splice(idx, 1);
+      if (!data.deleted_note_ids) {
+        data.deleted_note_ids = [];
+      }
+      if (!data.deleted_note_ids.includes(noteId)) {
+        data.deleted_note_ids.push(noteId);
+      }
+      data.notes = data.notes.filter((n) => n.id !== noteId);
+      data.reactions = (data.reactions || []).filter((r) => r.note_id !== noteId);
+      data.reports = (data.reports || []).filter((r) => r.note_id !== noteId);
     }
 
     data.admin_actions.push({
@@ -448,6 +510,7 @@ export const db = {
     data.notes = getInitialSampleNotes();
     data.reactions = [];
     data.reports = [];
+    data.deleted_note_ids = [];
     saveLocalDB(data);
     return data.notes.map(({ edit_token_hash, ...p }) => p);
   },

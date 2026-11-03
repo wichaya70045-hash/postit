@@ -39,6 +39,17 @@ export default function HomePage() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [maxCapacity, setMaxCapacity] = useState<number>(28);
   const [fallingNoteIds, setFallingNoteIds] = useState<Set<string>>(new Set());
+  const [deletedNoteIds, setDeletedNoteIds] = useState<Set<string>>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('yanin_deleted_notes');
+        return saved ? new Set(JSON.parse(saved)) : new Set();
+      } catch {
+        return new Set();
+      }
+    }
+    return new Set();
+  });
   const [loading, setLoading] = useState<boolean>(true);
   const [isComposerOpen, setIsComposerOpen] = useState<boolean>(false);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
@@ -74,12 +85,26 @@ export default function HomePage() {
     }
   };
 
+  const handleNoteDeleted = (deletedId: string) => {
+    setDeletedNoteIds((prev) => {
+      const next = new Set(prev).add(deletedId);
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('yanin_deleted_notes', JSON.stringify([...next]));
+        } catch {}
+      }
+      return next;
+    });
+    setNotes((prev) => prev.filter((n) => n.id !== deletedId));
+    setSelectedNote(null);
+  };
+
   const fetchNotes = async () => {
     try {
-      const res = await fetch('/api/notes?limit=60&offset=0');
+      const res = await fetch('/api/notes?limit=60&offset=0', { cache: 'no-store' });
       const data = await res.json();
-      if (data.success) {
-        setNotes(data.notes || []);
+      if (data.success && data.notes) {
+        setNotes(data.notes.filter((n: Note) => !deletedNoteIds.has(n.id)));
         if (data.maxCapacity) setMaxCapacity(data.maxCapacity);
         if (data.announcement) setAnnouncement(data.announcement);
       }
@@ -129,14 +154,17 @@ export default function HomePage() {
   useEffect(() => {
     const timer = setInterval(() => {
       if (currentTab === 'board' && !isComposerOpen) {
-        fetch('/api/notes?limit=35&offset=0')
+        fetch('/api/notes?limit=35&offset=0', { cache: 'no-store' })
           .then((r) => r.json())
           .then((data) => {
             if (data.success && data.notes) {
               setNotes((prev) => {
-                const serverMap = new Map(data.notes.map((n: Note) => [n.id, n]));
-                const fallingList = prev.filter((n) => fallingNoteIds.has(n.id) && !serverMap.has(n.id));
-                return [...data.notes, ...fallingList];
+                const freshNotes = data.notes.filter((n: Note) => !deletedNoteIds.has(n.id));
+                const serverMap = new Map(freshNotes.map((n: Note) => [n.id, n]));
+                const fallingList = prev.filter(
+                  (n) => fallingNoteIds.has(n.id) && !serverMap.has(n.id) && !deletedNoteIds.has(n.id)
+                );
+                return [...freshNotes, ...fallingList];
               });
             }
           })
@@ -144,7 +172,7 @@ export default function HomePage() {
       }
     }, 3000);
     return () => clearInterval(timer);
-  }, [currentTab, isComposerOpen, fallingNoteIds]);
+  }, [currentTab, isComposerOpen, fallingNoteIds, deletedNoteIds]);
 
   // Handle Drag Over Chalkboard
   const handleDragOver = (e: React.DragEvent) => {
@@ -241,6 +269,7 @@ export default function HomePage() {
 
   // Admin direct note delete
   const handleAdminDeleteNote = async (noteId: string) => {
+    handleNoteDeleted(noteId);
     const token =
       adminToken ||
       (typeof window !== 'undefined'
@@ -256,9 +285,7 @@ export default function HomePage() {
         body: JSON.stringify({ note_id: noteId, action: 'delete', admin_key: token }),
       });
       const data = await res.json();
-      if (data.success) {
-        setNotes((prev) => prev.filter((n) => n.id !== noteId));
-      } else {
+      if (!data.success) {
         alert(data.error || 'ลบไม่สำเร็จ');
       }
     } catch (err: any) {
@@ -579,6 +606,7 @@ export default function HomePage() {
         <MineView
           onSelectNote={(note) => setSelectedNote(note)}
           onOpenComposer={() => setIsComposerOpen(true)}
+          onNoteDeleted={handleNoteDeleted}
         />
       )}
 
@@ -612,9 +640,7 @@ export default function HomePage() {
         onClose={() => setSelectedNote(null)}
         isAdmin={isAdmin}
         adminToken={adminToken}
-        onNoteDeleted={(deletedId) => {
-          setNotes((prev) => prev.filter((n) => n.id !== deletedId));
-        }}
+        onNoteDeleted={handleNoteDeleted}
         onReactionUpdated={(updatedId, counts) => {
           setNotes((prev) =>
             prev.map((n) => (n.id === updatedId ? { ...n, reaction_counts: counts } : n))

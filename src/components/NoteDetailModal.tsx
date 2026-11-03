@@ -133,23 +133,24 @@ export const NoteDetailModal: React.FC<NoteDetailModalProps> = ({
   const handleDelete = async () => {
     if (!window.confirm('คุณแน่ใจว่าต้องการลบโพสต์อิทนี้ใช่ไหม?')) return;
     const editToken = getEditToken(note.id);
-    if (!editToken) {
-      alert('ไม่พบโทเคนยืนยันความเป็นเจ้าของ');
+    const deviceId = getOrCreateDeviceId();
+    if (!editToken && note.device_hash !== deviceId) {
+      alert('ไม่พบสิทธิ์ยืนยันความเป็นเจ้าของโพสต์อิทนี้');
       return;
     }
 
     setIsDeleting(true);
     try {
+      if (onNoteDeleted) onNoteDeleted(note.id);
+      onClose();
       const res = await fetch(`/api/notes/${note.id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ edit_token: editToken, device_hash: getOrCreateDeviceId() }),
+        body: JSON.stringify({ edit_token: editToken || undefined, device_hash: deviceId }),
       });
       const data = await res.json();
       if (data.success) {
         removeEditToken(note.id);
-        if (onNoteDeleted) onNoteDeleted(note.id);
-        onClose();
       } else {
         alert(data.error || 'ลบโพสต์ไม่สำเร็จ');
       }
@@ -170,6 +171,8 @@ export const NoteDetailModal: React.FC<NoteDetailModalProps> = ({
         ? localStorage.getItem('yanin_admin_token') || localStorage.getItem('yanin_admin_key') || 'admin1234'
         : 'admin1234');
     try {
+      if (onNoteDeleted) onNoteDeleted(note.id);
+      onClose();
       const res = await fetch('/api/admin/action', {
         method: 'POST',
         headers: {
@@ -179,10 +182,7 @@ export const NoteDetailModal: React.FC<NoteDetailModalProps> = ({
         body: JSON.stringify({ note_id: note.id, action: 'delete', admin_key: token }),
       });
       const data = await res.json();
-      if (data.success) {
-        if (onNoteDeleted) onNoteDeleted(note.id);
-        onClose();
-      } else {
+      if (!data.success) {
         alert(data.error || 'ลบไม่สำเร็จ');
       }
     } catch (err: any) {

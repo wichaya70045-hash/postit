@@ -29,13 +29,22 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get('offset') || '0', 10);
 
     const result = await db.getNotes(limit, offset);
-    return NextResponse.json({
-      success: true,
-      notes: result.notes,
-      maxCapacity: result.maxCapacity,
-      fallenNotes: result.fallenNotes,
-      announcement: (result as any).announcement || 'เวรประจำวัน: ช่วยกันส่งต่อรอยยิ้ม',
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        notes: result.notes,
+        maxCapacity: result.maxCapacity,
+        fallenNotes: result.fallenNotes,
+        announcement: (result as any).announcement || 'เวรประจำวัน: ช่วยกันส่งต่อรอยยิ้ม',
+      },
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          Pragma: 'no-cache',
+          Expires: '0',
+        },
+      }
+    );
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
