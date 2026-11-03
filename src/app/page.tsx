@@ -234,14 +234,14 @@ export default function HomePage() {
       }}
     >
       {/* Thai Classroom Header Navigation */}
-      <header className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between z-30">
+      <header className="w-full max-w-7xl mx-auto px-2.5 sm:px-6 py-1.5 sm:py-2.5 flex items-center justify-between z-30">
         {/* School / Classroom Branding */}
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-amber-700 border-2 border-amber-500/60 text-amber-200 flex items-center justify-center shadow-md">
-            <School className="w-5 h-5" />
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-amber-700 border-2 border-amber-500/60 text-amber-200 flex items-center justify-center shadow-md shrink-0">
+            <School className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
           <div>
-            <h1 className="text-lg sm:text-xl font-bold tracking-tight text-amber-100 flex items-center gap-2">
+            <h1 className="text-base sm:text-xl font-bold tracking-tight text-amber-100 flex items-center gap-1.5 sm:gap-2">
               <span>Yanin Board</span>
               <span className="hidden sm:inline-block text-[11px] font-medium text-amber-300 bg-amber-950/60 border border-amber-700/60 px-2 py-0.5 rounded-full">
                 🏫 ห้องเรียนกระดานดำ
@@ -254,7 +254,7 @@ export default function HomePage() {
         </div>
 
         {/* Actions Bar */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {/* View Mode Toggle: Canvas vs Grid */}
           <div className="hidden sm:flex items-center bg-black/40 backdrop-blur-xs p-1 rounded-xl border border-amber-900/50">
             <button
@@ -313,7 +313,7 @@ export default function HomePage() {
           {/* Mental Health Hotline */}
           <Link
             href="/help"
-            className="p-2 sm:px-3 sm:py-2 min-h-[42px] min-w-[42px] rounded-xl bg-black/30 border border-amber-900/50 flex items-center justify-center gap-1.5 text-rose-400 hover:text-rose-300 active:scale-95 transition-all shadow-xs text-xs font-medium"
+            className="p-1.5 sm:px-3 sm:py-2 min-h-[36px] sm:min-h-[42px] min-w-[36px] sm:min-w-[42px] rounded-lg sm:rounded-xl bg-black/30 border border-amber-900/50 flex items-center justify-center gap-1.5 text-rose-400 hover:text-rose-300 active:scale-95 transition-all shadow-xs text-xs font-medium"
             title="แหล่งช่วยเหลือทางใจ (โทร 1323)"
             aria-label="แหล่งช่วยเหลือทางใจ"
           >
@@ -325,7 +325,7 @@ export default function HomePage() {
           <button
             type="button"
             onClick={toggleDarkMode}
-            className="p-2 min-h-[42px] min-w-[42px] rounded-xl bg-black/30 border border-amber-900/50 text-amber-300 flex items-center justify-center hover:bg-black/50 active:scale-95 transition-all shadow-xs"
+            className="p-1.5 sm:p-2 min-h-[36px] sm:min-h-[42px] min-w-[36px] sm:min-w-[42px] rounded-lg sm:rounded-xl bg-black/30 border border-amber-900/50 text-amber-300 flex items-center justify-center hover:bg-black/50 active:scale-95 transition-all shadow-xs"
             aria-label="สลับโหมดมืด/สว่าง"
           >
             {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
@@ -335,7 +335,7 @@ export default function HomePage() {
 
       {/* Main Board View vs Mine View */}
       {currentTab === 'board' ? (
-        <div className="flex-1 flex flex-col w-full max-w-7xl mx-auto px-2 sm:px-6 pb-20 sm:pb-6 relative">
+        <div className="flex-1 flex flex-col w-full max-w-7xl mx-auto px-1 sm:px-6 pb-20 sm:pb-6 relative">
           {/* Edge Screen Navigation Buttons for 4 Walls */}
           <EdgeNavButtons
             currentWall={currentWall}
@@ -351,10 +351,10 @@ export default function HomePage() {
 
           {/* Mobile subheader bar with capacity and toggle */}
           {currentWall === 'front' && (
-            <div className="flex items-center justify-between px-2 py-1 mb-1.5 text-xs text-amber-200/70">
+            <div className="flex items-center justify-between px-1.5 sm:px-2 py-0.5 sm:py-1 mb-1 text-[11px] sm:text-xs text-amber-200/70">
               {/* Board Capacity Indicator */}
-              <div className="flex items-center gap-1.5 bg-black/40 px-2.5 py-1 rounded-lg border border-amber-900/40">
-                <Layers className="w-3.5 h-3.5 text-amber-400" />
+              <div className="flex items-center gap-1 sm:gap-1.5 bg-black/40 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg border border-amber-900/40">
+                <Layers className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />
                 <span>
                   ความจุกระดาน: <strong className="text-amber-300">{notes.length}</strong> / {maxCapacity} แผ่น
                 </span>
@@ -367,7 +367,7 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => setViewMode(viewMode === 'canvas' ? 'grid' : 'canvas')}
-                className="sm:hidden text-xs px-2.5 py-1 bg-black/40 border border-amber-900/40 rounded-lg text-amber-200 font-medium"
+                className="sm:hidden text-[11px] px-2 py-0.5 bg-black/40 border border-amber-900/40 rounded-lg text-amber-200 font-medium active:scale-95 transition-transform"
               >
                 {viewMode === 'canvas' ? 'สลับเป็นตาราง' : 'สลับเป็นกระดานดำ'}
               </button>
@@ -405,28 +405,28 @@ export default function HomePage() {
                 ref={boardRef}
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
-                className="relative flex-1 w-full min-h-[75vh] sm:min-h-[82vh] rounded-2xl chalkboard-frame bg-chalkboard overflow-hidden transition-colors"
+                className="relative flex-1 w-full min-h-[70vh] sm:min-h-[82vh] rounded-xl sm:rounded-2xl chalkboard-frame bg-chalkboard overflow-hidden transition-colors"
               >
                 {/* Vintage Classroom Chalk Corner Header */}
-                <div className="absolute top-3 left-4 sm:top-4 sm:left-6 z-10 pointer-events-none flex flex-col">
-                  <span className="chalk-font text-xs sm:text-sm tracking-wide opacity-85">
+                <div className="absolute top-2 left-2.5 sm:top-4 sm:left-6 z-10 pointer-events-none flex flex-col">
+                  <span className="chalk-font text-[10px] sm:text-sm tracking-wide opacity-80">
                     กระดานห้องเรียน Yanin 🏫
                   </span>
-                  <span className="text-[10px] sm:text-xs text-stone-300/70 postit-handwriting">
+                  <span className="text-[9px] sm:text-xs text-stone-300/60 postit-handwriting hidden xs:inline">
                     เวรประจำวัน: ช่วยกันส่งต่อรอยยิ้ม
                   </span>
                 </div>
 
-                <div className="absolute top-3 right-4 sm:top-4 sm:right-6 z-10 pointer-events-none text-right">
-                  <span className="chalk-font text-[11px] sm:text-xs opacity-75">
-                    วันอังคารที่ ๓ พฤศจิกายน ๒๕๖๙
+                <div className="absolute top-2 right-2.5 sm:top-4 sm:right-6 z-10 pointer-events-none text-right">
+                  <span className="chalk-font text-[9px] sm:text-xs opacity-70">
+                    วันอังคารที่ ๓ พ.ย. ๒๕๖๙
                   </span>
                 </div>
 
                 {/* Drag over drop target indicator */}
                 {dragOverPos && (
                   <div
-                    className="absolute z-30 w-36 h-36 rounded-xl border-2 border-dashed border-amber-300 bg-amber-300/20 backdrop-blur-[1px] pointer-events-none transition-all flex items-center justify-center text-xs text-amber-100 font-bold"
+                    className="absolute z-30 w-28 sm:w-36 h-28 sm:h-36 rounded-xl border-2 border-dashed border-amber-300 bg-amber-300/20 backdrop-blur-[1px] pointer-events-none transition-all flex items-center justify-center text-[11px] sm:text-xs text-amber-100 font-bold"
                     style={{ left: `${dragOverPos.x}%`, top: `${dragOverPos.y}%` }}
                   >
                     ปล่อยเพื่อแปะตรงนี้ 📌
@@ -453,11 +453,11 @@ export default function HomePage() {
 
                 {notes.length === 0 && (
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 pointer-events-none z-10">
-                    <div className="w-14 h-14 rounded-full bg-black/40 text-amber-300 flex items-center justify-center mb-3 border border-amber-600/40">
-                      <Sparkles className="w-6 h-6" />
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-black/40 text-amber-300 flex items-center justify-center mb-3 border border-amber-600/40">
+                      <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
-                    <h3 className="text-base font-semibold text-amber-100 chalk-font">กระดานดำยังว่างอยู่</h3>
-                    <p className="text-xs text-stone-300/70 mt-1">
+                    <h3 className="text-sm sm:text-base font-semibold text-amber-100 chalk-font">กระดานดำยังว่างอยู่</h3>
+                    <p className="text-[11px] sm:text-xs text-stone-300/70 mt-1">
                       คลิก "+ แปะโพสต์อิท" แล้วลากแผ่นกระดาษมาติดบนกระดานได้เลย!
                     </p>
                   </div>
@@ -465,18 +465,18 @@ export default function HomePage() {
               </div>
 
               {/* Wooden Chalk Tray (รางวางชอล์กด้านล่าง) */}
-              <div className="h-6 sm:h-7 bg-[#4d2b0e] border-t-2 border-[#6c411c] shadow-lg rounded-b-xl flex items-center justify-between px-6 z-20">
+              <div className="h-4 sm:h-7 bg-[#4d2b0e] border-t sm:border-t-2 border-[#6c411c] shadow-lg rounded-b-lg sm:rounded-b-xl flex items-center justify-between px-3 sm:px-6 z-20">
                 {/* Chalk sticks */}
-                <div className="flex items-center gap-1.5 opacity-80">
-                  <div className="w-6 sm:w-8 h-2 bg-white rounded-full shadow-xs" title="ชอล์กขาว" />
-                  <div className="w-6 sm:w-8 h-2 bg-yellow-200 rounded-full shadow-xs" title="ชอล์กเหลือง" />
-                  <div className="w-5 sm:w-7 h-2 bg-sky-200 rounded-full shadow-xs" title="ชอล์กฟ้า" />
-                  <div className="w-5 sm:w-7 h-2 bg-pink-200 rounded-full shadow-xs" title="ชอล์กชมพู" />
+                <div className="flex items-center gap-1 sm:gap-1.5 opacity-80">
+                  <div className="w-4 sm:w-8 h-1.5 sm:h-2 bg-white rounded-full shadow-xs" title="ชอล์กขาว" />
+                  <div className="w-4 sm:w-8 h-1.5 sm:h-2 bg-yellow-200 rounded-full shadow-xs" title="ชอล์กเหลือง" />
+                  <div className="w-3.5 sm:w-7 h-1.5 sm:h-2 bg-sky-200 rounded-full shadow-xs" title="ชอล์กฟ้า" />
+                  <div className="w-3.5 sm:w-7 h-1.5 sm:h-2 bg-pink-200 rounded-full shadow-xs" title="ชอล์กชมพู" />
                 </div>
 
                 {/* Wooden Felt Eraser (แปรงลบกระดาน) */}
                 <div
-                  className="flex items-center h-3 sm:h-3.5 px-3 bg-[#8b5a2b] border border-[#3b1f08] rounded shadow-xs text-[9px] text-amber-100/90 font-mono tracking-tighter"
+                  className="flex items-center h-2.5 sm:h-3.5 px-2 sm:px-3 bg-[#8b5a2b] border border-[#3b1f08] rounded shadow-xs text-[8px] sm:text-[9px] text-amber-100/90 font-mono tracking-tighter"
                   title="แปรงลบกระดาน"
                 >
                   แปรงลบกระดาน
@@ -485,7 +485,7 @@ export default function HomePage() {
             </div>
           ) : (
             /* Responsive Grid Mode with Chalkboard Theme */
-            <div className="classroom-wall-enter grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-3 bg-chalkboard rounded-2xl border-4 border-[#6c411c]">
+            <div className="classroom-wall-enter grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 sm:gap-4 p-2 sm:p-3 bg-chalkboard rounded-xl sm:rounded-2xl border-2 sm:border-4 border-[#6c411c]">
               {notes.map((note) => (
                 <PostitNote
                   key={note.id}

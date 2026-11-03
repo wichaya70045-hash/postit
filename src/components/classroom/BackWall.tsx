@@ -143,38 +143,38 @@ export const BackWall: React.FC<BackWallProps> = ({ onGoToBoard }) => {
   };
 
   return (
-    <div className="relative flex-1 w-full min-h-[75vh] sm:min-h-[82vh] rounded-2xl overflow-hidden border-8 sm:border-[16px] border-[#533114] shadow-2xl bg-[#edd6b3] dark:bg-[#1a1f1b] flex flex-col justify-between transition-colors">
+    <div className="relative flex-1 w-full min-h-[70vh] sm:min-h-[82vh] rounded-xl sm:rounded-2xl overflow-hidden border-4 sm:border-[16px] border-[#533114] shadow-xl sm:shadow-2xl bg-[#edd6b3] dark:bg-[#1a1f1b] flex flex-col justify-between transition-colors">
       {/* Wall Header: Classroom Clock and Title */}
-      <div className="px-6 pt-4 pb-2 flex items-center justify-between z-20">
-        <div className="flex items-center gap-2">
-          <span className="text-xl">📌</span>
+      <div className="px-3 sm:px-6 pt-2.5 sm:pt-4 pb-1.5 sm:pb-2 flex items-center justify-between z-20">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <span className="text-lg sm:text-xl">📌</span>
           <div>
-            <h2 className="text-sm sm:text-base font-bold text-amber-950 dark:text-amber-100 flex items-center gap-2">
+            <h2 className="text-xs sm:text-base font-bold text-amber-950 dark:text-amber-100 flex items-center gap-1 sm:gap-2">
               <span>ผนังด้านหลัง: บอร์ดนิทรรศการ & โซนฟีเจอร์ในอนาคต</span>
-              <span className="text-[10px] font-normal px-2 py-0.5 rounded-full bg-amber-300 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200 border border-amber-500/40">
-                ✨ ศูนย์รวมฟีเจอร์ใหม่
+              <span className="text-[9px] sm:text-[10px] font-normal px-1.5 sm:px-2 py-0.2 sm:py-0.5 rounded-full bg-amber-300 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200 border border-amber-500/40">
+                ✨ ฟีเจอร์ใหม่
               </span>
             </h2>
-            <p className="text-[11px] text-stone-700 dark:text-stone-300">
+            <p className="text-[10px] sm:text-[11px] text-stone-700 dark:text-stone-300 hidden xs:block">
               พื้นที่จัดแสดงบอร์ดความรู้ ตู้ล็อกเกอร์ และฟีเจอร์ใหม่ที่กำลังจะมาถึงห้องเรียน
             </p>
           </div>
         </div>
 
         {/* Real-time Classroom Wall Clock */}
-        <div className="flex items-center gap-2 bg-[#533114] text-amber-100 px-3.5 py-1.5 rounded-2xl border-2 border-amber-600/60 shadow-md">
-          <Clock className="w-4 h-4 text-amber-300 animate-spin-slow" />
+        <div className="flex items-center gap-1.5 sm:gap-2 bg-[#533114] text-amber-100 px-2 sm:px-3.5 py-1 sm:py-1.5 rounded-xl sm:rounded-2xl border sm:border-2 border-amber-600/60 shadow-md shrink-0">
+          <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 animate-spin-slow" />
           <div className="flex flex-col items-end">
-            <span className="text-[10px] text-amber-300 font-mono tracking-wider">นาฬิกาห้องเรียน</span>
-            <span className="text-xs sm:text-sm font-bold font-mono text-white">{timeString || 'กำลังเดิน...'}</span>
+            <span className="text-[8px] sm:text-[10px] text-amber-300 font-mono tracking-wider">นาฬิกาห้องเรียน</span>
+            <span className="text-[11px] sm:text-sm font-bold font-mono text-white">{timeString || 'กำลังเดิน...'}</span>
           </div>
         </div>
       </div>
 
       {/* Main Corkboard Section (บอร์ดไม้ก๊อกขนาดใหญ่หลังห้อง) */}
-      <div className="flex-1 px-4 sm:px-8 py-3 flex flex-col justify-center">
+      <div className="flex-1 px-2 sm:px-8 py-2 sm:py-3 flex flex-col justify-center overflow-y-auto">
         {/* Corkboard Frame */}
-        <div className="w-full relative rounded-2xl border-8 border-[#7a481e] bg-[#cf9a63] dark:bg-[#2b241c] p-4 sm:p-6 shadow-2xl overflow-hidden">
+        <div className="w-full relative rounded-xl sm:rounded-2xl border-4 sm:border-8 border-[#7a481e] bg-[#cf9a63] dark:bg-[#2b241c] p-2.5 sm:p-6 shadow-xl sm:shadow-2xl overflow-hidden">
           {/* Cork texture overlay */}
           <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#3a1e0b_1px,transparent_1px)] [background-size:12px_12px]" />
 

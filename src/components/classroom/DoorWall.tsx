@@ -38,19 +38,19 @@ export const DoorWall: React.FC<DoorWallProps> = ({ onGoToBoard }) => {
   };
 
   return (
-    <div className="relative flex-1 w-full min-h-[75vh] sm:min-h-[82vh] rounded-2xl overflow-hidden border-8 sm:border-[16px] border-[#533114] shadow-2xl bg-[#fdfbf7] dark:bg-[#1a231d] flex flex-col justify-between transition-colors">
+    <div className="relative flex-1 w-full min-h-[70vh] sm:min-h-[82vh] rounded-xl sm:rounded-2xl overflow-hidden border-4 sm:border-[16px] border-[#533114] shadow-xl sm:shadow-2xl bg-[#fdfbf7] dark:bg-[#1a231d] flex flex-col justify-between transition-colors">
       {/* Wall Header: Classroom Plate */}
-      <div className="px-6 pt-4 pb-2 flex items-center justify-between z-20">
-        <div className="flex items-center gap-2">
-          <span className="text-xl">🚪</span>
+      <div className="px-3 sm:px-6 pt-2.5 sm:pt-4 pb-1.5 sm:pb-2 flex items-center justify-between z-20">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <span className="text-lg sm:text-xl">🚪</span>
           <div>
-            <h2 className="text-sm sm:text-base font-bold text-amber-950 dark:text-amber-100 flex items-center gap-2">
+            <h2 className="text-xs sm:text-base font-bold text-amber-950 dark:text-amber-100 flex items-center gap-1 sm:gap-2">
               <span>ผนังด้านขวา: ประตูห้องเรียน & ระเบียงทางเดิน</span>
-              <span className="text-[10px] font-normal px-2 py-0.5 rounded-full bg-amber-200/70 dark:bg-amber-900/50 text-amber-900 dark:text-amber-200 border border-amber-400/40">
-                ม. ๓/๑ ห้องเรียนความสุข
+              <span className="text-[9px] sm:text-[10px] font-normal px-1.5 sm:px-2 py-0.2 sm:py-0.5 rounded-full bg-amber-200/70 dark:bg-amber-900/50 text-amber-900 dark:text-amber-200 border border-amber-400/40">
+                ม. ๓/๑
               </span>
             </h2>
-            <p className="text-[11px] text-stone-600 dark:text-stone-300">
+            <p className="text-[10px] sm:text-[11px] text-stone-600 dark:text-stone-300 hidden xs:block">
               ประตูไม้คลาสสิกเชื่อมสู่ระเบียงทางเดินและโลกภายนอกห้องเรียน
             </p>
           </div>
@@ -60,20 +60,20 @@ export const DoorWall: React.FC<DoorWallProps> = ({ onGoToBoard }) => {
         <button
           type="button"
           onClick={handleRingBell}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold shadow-xs border transition-all active:scale-95 ${
+          className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-semibold shadow-xs border transition-all active:scale-95 ${
             bellRung
               ? 'bg-amber-500 text-white border-amber-300 animate-bounce'
               : 'bg-amber-700 hover:bg-amber-600 text-amber-100 border-amber-500/50'
           }`}
           title="กดกริ่งโรงเรียน"
         >
-          <Bell className={`w-3.5 h-3.5 ${bellRung ? 'animate-spin-slow' : ''}`} />
-          <span>{bellRung ? 'กริ๊งงงงงงง! 🔔' : 'สั่นกริ่งโรงเรียน'}</span>
+          <Bell className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${bellRung ? 'animate-spin-slow' : ''}`} />
+          <span>{bellRung ? 'กริ๊งงงงงงง! 🔔' : 'สั่นกริ่ง'}</span>
         </button>
       </div>
 
       {/* Main Door Wall Scene */}
-      <div className="flex-1 px-4 sm:px-10 py-4 flex flex-col md:flex-row items-center justify-center gap-6">
+      <div className="flex-1 px-3 sm:px-10 py-2 sm:py-4 flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-6 overflow-y-auto">
         {/* Left Section: Timetable & Duty Board */}
         <div className="w-full md:w-64 flex flex-col gap-3">
           {/* School Timetable Plaque */}
@@ -135,7 +135,7 @@ export const DoorWall: React.FC<DoorWallProps> = ({ onGoToBoard }) => {
           </div>
 
           {/* Door Frame */}
-          <div className="relative w-56 sm:w-64 h-80 sm:h-96 rounded-t-2xl border-8 border-[#4d2b0e] bg-[#2a1608] shadow-2xl overflow-hidden flex flex-col">
+          <div className="relative w-44 sm:w-64 h-64 sm:h-96 rounded-t-xl sm:rounded-t-2xl border-4 sm:border-8 border-[#4d2b0e] bg-[#2a1608] shadow-xl sm:shadow-2xl overflow-hidden flex flex-col">
             {/* Hallway Backdrop (Seen when door is ajar) */}
             <div className="absolute inset-0 bg-gradient-to-b from-sky-200 via-amber-100 to-stone-200 flex flex-col items-center justify-center p-3 text-center">
               <span className="text-2xl mb-1">🏫</span>

@@ -32,19 +32,19 @@ export const WindowWall: React.FC<WindowWallProps> = ({ isDarkMode, onGoToBoard 
   };
 
   return (
-    <div className="relative flex-1 w-full min-h-[75vh] sm:min-h-[82vh] rounded-2xl overflow-hidden border-8 sm:border-[16px] border-[#533114] shadow-2xl bg-[#f5efe6] dark:bg-[#1a251f] flex flex-col justify-between transition-colors">
+    <div className="relative flex-1 w-full min-h-[70vh] sm:min-h-[82vh] rounded-xl sm:rounded-2xl overflow-hidden border-4 sm:border-[16px] border-[#533114] shadow-xl sm:shadow-2xl bg-[#f5efe6] dark:bg-[#1a251f] flex flex-col justify-between transition-colors">
       {/* Wall Header: Classroom Sign */}
-      <div className="px-6 pt-4 pb-2 flex items-center justify-between z-20">
-        <div className="flex items-center gap-2">
-          <span className="text-xl">🪟</span>
+      <div className="px-3 sm:px-6 pt-2.5 sm:pt-4 pb-1.5 sm:pb-2 flex items-center justify-between z-20">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <span className="text-lg sm:text-xl">🪟</span>
           <div>
-            <h2 className="text-sm sm:text-base font-bold text-amber-950 dark:text-amber-100 flex items-center gap-2">
+            <h2 className="text-xs sm:text-base font-bold text-amber-950 dark:text-amber-100 flex items-center gap-1 sm:gap-2">
               <span>ผนังด้านซ้าย: หน้าต่างห้องเรียนริมสนาม</span>
-              <span className="text-[10px] font-normal px-2 py-0.5 rounded-full bg-amber-200/70 dark:bg-amber-900/50 text-amber-900 dark:text-amber-200 border border-amber-400/40">
-                {isOpenWindow ? '🍃 หน้าต่างเปิดรับลม' : '🔒 หน้าต่างปิดอยู่'}
+              <span className="text-[9px] sm:text-[10px] font-normal px-1.5 sm:px-2 py-0.2 sm:py-0.5 rounded-full bg-amber-200/70 dark:bg-amber-900/50 text-amber-900 dark:text-amber-200 border border-amber-400/40">
+                {isOpenWindow ? '🍃 รับลม' : '🔒 ปิด'}
               </span>
             </h2>
-            <p className="text-[11px] text-stone-600 dark:text-stone-300">
+            <p className="text-[10px] sm:text-[11px] text-stone-600 dark:text-stone-300 hidden xs:block">
               มุมโปรดริมหน้าต่างของห้อง มองออกไปเห็นสนามหญ้าและท้องฟ้า
             </p>
           </div>
@@ -54,20 +54,20 @@ export const WindowWall: React.FC<WindowWallProps> = ({ isDarkMode, onGoToBoard 
         <button
           type="button"
           onClick={() => setIsOpenWindow(!isOpenWindow)}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold shadow-xs border transition-all active:scale-95 ${
+          className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-semibold shadow-xs border transition-all active:scale-95 ${
             isOpenWindow
               ? 'bg-emerald-600 text-white border-emerald-400'
               : 'bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-200 border-stone-300'
           }`}
         >
-          <Wind className={`w-3.5 h-3.5 ${isOpenWindow ? 'animate-spin-slow text-emerald-200' : ''}`} />
+          <Wind className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${isOpenWindow ? 'animate-spin-slow text-emerald-200' : ''}`} />
           <span>{isOpenWindow ? 'ปิดหน้าต่าง' : 'เปิดรับลม'}</span>
         </button>
       </div>
 
       {/* Main Window Frame Area */}
-      <div className="flex-1 px-4 sm:px-12 py-3 flex items-center justify-center">
-        <div className="w-full max-w-4xl h-[48vh] sm:h-[54vh] relative rounded-2xl border-8 sm:border-12 border-[#6c411c] bg-[#3a200e] shadow-2xl overflow-hidden flex flex-col">
+      <div className="flex-1 px-2 sm:px-12 py-1.5 sm:py-3 flex items-center justify-center">
+        <div className="w-full max-w-4xl h-[42vh] sm:h-[54vh] relative rounded-xl sm:rounded-2xl border-4 sm:border-12 border-[#6c411c] bg-[#3a200e] shadow-xl sm:shadow-2xl overflow-hidden flex flex-col">
           {/* Top Wooden Window Transom Header */}
           <div className="h-6 sm:h-8 bg-[#4d2b0e] border-b-4 border-[#311808] flex items-center justify-between px-4">
             <div className="flex items-center gap-2">

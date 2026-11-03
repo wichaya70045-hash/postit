@@ -1,6 +1,182 @@
 {
   "notes": [
     {
+      "id": "note_1793722520488_is7if",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793722520241: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 69,
+      "posY": 11,
+      "rotation": 3.5,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:15:20.488Z",
+      "device_hash": "dev_E0jAiH39S0gR7G1xHZ5zbZz8",
+      "edit_token_hash": "f4812ec433bdc1e4c190912ef383ea7e2caffeb52d765fee0af9bba51ecbc4ae"
+    },
+    {
+      "id": "note_1793722517548_c4205",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793722517318: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 59,
+      "posY": 11,
+      "rotation": -1.2,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:15:17.548Z",
+      "device_hash": "dev_nCaP0X7ejXv51UjJ5Fovw2Vu",
+      "edit_token_hash": "a6402cd7663982b0c5305e62144f386730da9ac42941a4ff886f778a939fdffd"
+    },
+    {
+      "id": "note_1793722514520_ihyto",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793722514199: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 40,
+      "posY": 15,
+      "rotation": 0.8,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:15:14.520Z",
+      "device_hash": "dev_HtsyJ9zyHyIE4OanMn3hybhL",
+      "edit_token_hash": "baa4a9bc1fb05cc89d166c47c73ca61baebac95a03a84c114659d06a9221b43a"
+    },
+    {
+      "id": "note_1793722514132_0lupu",
+      "kind": "text",
+      "body": "การบ้านวิชาความสุข 1793722513390: รอยยิ้มและการแบ่งปัน!",
+      "color": "#bae6fd",
+      "posX": 60,
+      "posY": 15,
+      "rotation": 2.5,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:15:14.132Z",
+      "device_hash": "dev_c3MU5kcsc9zIzqjzp6sod4Vo",
+      "edit_token_hash": "1fedf9128e78a8a44c354ab5bc5f8e86e0a0847ed14f7eea16165a5360586b39"
+    },
+    {
+      "id": "note_1793722475506_os6ph",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793722475287: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 27,
+      "posY": 9,
+      "rotation": -1.8,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 1,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:14:35.506Z",
+      "device_hash": "dev_bWRiiILqIZ4g83BrBIW2q1Gk",
+      "edit_token_hash": "492eb8a6789a51570ecf0466b84a1d0f9967658f05b5e9479134761ed4de3450"
+    },
+    {
+      "id": "note_1793722475276_wmkmt",
+      "kind": "text",
+      "body": "การบ้านวิชาความสุข 1793722475061: รอยยิ้มและการแบ่งปัน!",
+      "color": "#bae6fd",
+      "posX": 10,
+      "posY": 10,
+      "rotation": 0.1,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:14:35.276Z",
+      "device_hash": "dev_5TX3849bhtw6HUl1VK9fO9D3",
+      "edit_token_hash": "845ea660181347bfdb0c0da848b87f0deb362f507ee4d3da1cd753e5c84f3a96"
+    },
+    {
+      "id": "note_1793722471613_tr6dj",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793722471337: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 22,
+      "posY": 8,
+      "rotation": 4.6,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:14:31.613Z",
+      "device_hash": "dev_iAABS1LwPTL2MCSmeOhoTGqP",
+      "edit_token_hash": "8a22cb01031a0cf0f0bb38a79a2c73e7c6a5d5b7f97e4d5be169eb92ecc12c1a"
+    },
+    {
+      "id": "note_1793722469328_fkut7",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793722468837: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 68,
+      "posY": 15,
+      "rotation": 4.6,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-03T16:14:29.328Z",
+      "device_hash": "dev_S3KZ9rWoNX7616RjAzCyzesq",
+      "edit_token_hash": "30620325a88629d11c79a2d3ad7cb9bb89258fe5a8b4fd34de71b0ee542e08ab"
+    },
+    {
       "id": "note_1793690481919_7rjj3",
       "kind": "text",
       "body": "การบ้านวิชาความสุข 1793690481545: รอยยิ้มและการแบ่งปัน!",
@@ -448,7 +624,7 @@
       "posX": 38,
       "posY": 8,
       "rotation": 3.9,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -470,7 +646,7 @@
       "posX": 65,
       "posY": 13,
       "rotation": 4.4,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -492,7 +668,7 @@
       "posX": 34,
       "posY": 14,
       "rotation": 1.1,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -514,7 +690,7 @@
       "posX": 18,
       "posY": 11,
       "rotation": -1.8,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -536,7 +712,7 @@
       "posX": 52,
       "posY": 12,
       "rotation": 4.9,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -558,7 +734,7 @@
       "posX": 55,
       "posY": 28,
       "rotation": -3.7,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -580,7 +756,7 @@
       "posX": 22,
       "posY": 11,
       "rotation": 0.9,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -602,7 +778,7 @@
       "posX": 43,
       "posY": 61,
       "rotation": -1.4,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -3126,6 +3302,12 @@
       "device_hash": "dev_zEW844XHuL0SAByVkCnfwx0J",
       "type": "heart",
       "created_at": "2026-11-03T07:21:22.322Z"
+    },
+    {
+      "note_id": "note_1793722475506_os6ph",
+      "device_hash": "dev_TslnsjNmiLnH6ochV23h502z",
+      "type": "heart",
+      "created_at": "2026-11-03T16:15:14.381Z"
     }
   ],
   "reports": [],
