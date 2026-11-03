@@ -18,6 +18,7 @@ interface LocalDBData {
   reactions: Array<{ note_id: string; device_hash: string; type: ReactionType; created_at: string }>;
   reports: Array<{ id: string; note_id: string; device_hash: string; reason: string; created_at: string }>;
   admin_actions: Array<{ id: string; admin_id: string; note_id: string; action: string; reason?: string; created_at: string }>;
+  announcement?: string;
 }
 
 function getInitialSampleNotes(): Array<Note & { edit_token_hash: string }> {
@@ -130,7 +131,7 @@ function saveLocalDB(data: LocalDBData): void {
 
 export const db = {
   // Fetch active notes on chalkboard
-  async getNotes(limit = 60, offset = 0): Promise<{ notes: Note[]; maxCapacity: number; fallenNotes: Note[] }> {
+  async getNotes(limit = 60, offset = 0): Promise<{ notes: Note[]; maxCapacity: number; fallenNotes: Note[]; announcement?: string }> {
     const data = loadLocalDB();
     const visibleNotes = data.notes.filter((n) => n.status === 'visible');
     visibleNotes.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
@@ -144,6 +145,7 @@ export const db = {
       notes: paginated.map(({ edit_token_hash, ...p }) => p),
       maxCapacity: MAX_BOARD_CAPACITY,
       fallenNotes: fallenNotes.map(({ edit_token_hash, ...p }) => p),
+      announcement: data.announcement || 'เวรประจำวัน: ช่วยกันส่งต่อรอยยิ้ม',
     };
   },
 
@@ -171,9 +173,24 @@ export const db = {
     const randomRotation = Number((Math.random() * 10 - 5).toFixed(1));
     const newNoteId = 'note_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
 
-    const posX = typeof payload.posX === 'number' ? payload.posX : Math.floor(Math.random() * 68) + 6;
-    // New notes are posted at the topmost area first
-    const posY = typeof payload.posY === 'number' ? payload.posY : Math.floor(Math.random() * 8) + 8;
+    const currentActive = data.notes.filter((n) => n.status === 'visible');
+
+    let posX = payload.posX;
+    let posY = payload.posY;
+
+    if (typeof posX !== 'number' || typeof posY !== 'number') {
+      // Calculate smart staggered slot: starts at top row and distributes downwards
+      // so notes never clump or pile up at the top on mobile or desktop!
+      const slotIndex = currentActive.length;
+      const row = slotIndex % 4; // 4 vertical tiers
+      const col = Math.floor(slotIndex / 4) % 3; // 3 horizontal columns
+
+      const rowY = [11, 28, 46, 62][row] + (Math.floor(Math.random() * 4) - 2);
+      const colX = [8, 38, 66][col] + (Math.floor(Math.random() * 6) - 3);
+
+      if (typeof posX !== 'number') posX = Math.max(5, Math.min(75, colX));
+      if (typeof posY !== 'number') posY = Math.max(8, Math.min(68, rowY));
+    }
 
     const newRecord: Note & { edit_token_hash: string } = {
       id: newNoteId,
@@ -195,7 +212,6 @@ export const db = {
     };
 
     // Find if the board is already at full capacity
-    const currentActive = data.notes.filter((n) => n.status === 'visible');
     currentActive.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
     let oldestFallenNote: Note | undefined = undefined;
@@ -339,5 +355,26 @@ export const db = {
 
     saveLocalDB(data);
     return true;
+  },
+
+  getAnnouncement(): string {
+    const data = loadLocalDB();
+    return data.announcement || 'เวรประจำวัน: ช่วยกันส่งต่อรอยยิ้ม';
+  },
+
+  setAnnouncement(text: string): string {
+    const data = loadLocalDB();
+    data.announcement = text;
+    saveLocalDB(data);
+    return data.announcement;
+  },
+
+  resetBoardToDefault(): Note[] {
+    const data = loadLocalDB();
+    data.notes = getInitialSampleNotes();
+    data.reactions = [];
+    data.reports = [];
+    saveLocalDB(data);
+    return data.notes.map(({ edit_token_hash, ...p }) => p);
   },
 };

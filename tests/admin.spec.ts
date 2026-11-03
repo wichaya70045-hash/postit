@@ -1,0 +1,53 @@
+import { test, expect } from '@playwright/test';
+
+test.describe('Admin System & Public Anonymous Access', () => {
+  test('ผู้ใช้งานทั่วไปสามารถใช้งาน อ่าน และเขียนโพสต์อิทได้โดยไม่ต้องเข้าสู่ระบบ (No login required for public)', async ({ page }) => {
+    await page.goto('/');
+
+    // Check header exists and admin button is present but optional
+    await expect(page.locator('h1')).toContainText('Yanin Board');
+    
+    // Public user should see board capacity, notes, and compose button without login prompt
+    await expect(page.locator('text=ความจุกระดาน')).toBeVisible();
+
+    // Open composer directly without any authentication barrier
+    const composeBtn = page.locator('button:has-text("แปะโพสต์อิท")').first();
+    if (await composeBtn.isVisible()) {
+      await composeBtn.click();
+      await expect(page.locator('text=ชอล์ก / ปากกา')).toBeVisible();
+      // Close composer
+      await page.keyboard.press('Escape');
+    }
+  });
+
+  test('สามารถเข้าสู่ระบบแอดมิน (ครูเวร) ด้วย admin / admin1234 และเปิดแดชบอร์ดจัดการได้', async ({ page }) => {
+    await page.goto('/');
+
+    // Click Admin button in header
+    const adminBtn = page.locator('button[aria-label="เข้าสู่ระบบครูเวร"]');
+    await expect(adminBtn).toBeVisible();
+    await adminBtn.click();
+
+    // Verify Admin Login modal appears
+    await expect(page.locator('text=เข้าสู่ระบบผู้ดูแล (Admin)')).toBeVisible();
+    await expect(page.locator('text=ไม่ต้องล็อกอิน')).toBeVisible();
+
+    // Fill in credentials
+    await page.fill('input[type="text"]', 'admin');
+    await page.fill('input[type="password"]', 'admin1234');
+
+    // Submit
+    await page.click('button:has-text("เข้าสู่ระบบ Admin")');
+
+    // Should now see admin dashboard
+    await expect(page.locator('text=แผงควบคุมผู้ดูแล (Admin Panel)')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('button:has-text("โพสต์ทั้งหมด")')).toBeVisible();
+    await expect(page.locator('button:has-text("ตั้งค่ากระดาน")')).toBeVisible();
+
+    // Close admin dashboard
+    await page.click('button[aria-label="ปิดแผงควบคุม"]');
+    
+    // Header should now show "ครูเวร (Admin)"
+    await expect(page.locator('button[aria-label="แผงควบคุมครูเวร"]')).toBeVisible();
+  });
+});

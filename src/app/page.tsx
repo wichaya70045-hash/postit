@@ -13,6 +13,8 @@ import { ClassroomCompass } from '@/components/classroom/ClassroomCompass';
 import { WindowWall } from '@/components/classroom/WindowWall';
 import { DoorWall } from '@/components/classroom/DoorWall';
 import { BackWall } from '@/components/classroom/BackWall';
+import { AdminLoginModal } from '@/components/AdminLoginModal';
+import { AdminDashboardModal } from '@/components/AdminDashboardModal';
 import Link from 'next/link';
 import {
   HeartHandshake,
@@ -26,6 +28,8 @@ import {
   Sparkles,
   School,
   Layers,
+  Key,
+  ShieldCheck,
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -41,12 +45,22 @@ export default function HomePage() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [draggedNotePayload, setDraggedNotePayload] = useState<Partial<CreateNotePayload> | null>(null);
   const [dragOverPos, setDragOverPos] = useState<{ x: number; y: number } | null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [adminToken, setAdminToken] = useState<string>('');
+  const [isAdminLoginOpen, setIsAdminLoginOpen] = useState<boolean>(false);
+  const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState<boolean>(false);
+  const [announcement, setAnnouncement] = useState<string>('เวรประจำวัน: ช่วยกันส่งต่อรอยยิ้ม');
   const boardRef = useRef<HTMLDivElement | null>(null);
 
-  // Load dark mode state
+  // Load dark mode and admin state
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setIsDarkMode(document.documentElement.classList.contains('dark'));
+      const savedToken = localStorage.getItem('yanin_admin_token') || localStorage.getItem('yanin_admin_key');
+      if (savedToken) {
+        setIsAdmin(true);
+        setAdminToken(savedToken);
+      }
     }
   }, []);
 
@@ -67,6 +81,7 @@ export default function HomePage() {
       if (data.success) {
         setNotes(data.notes || []);
         if (data.maxCapacity) setMaxCapacity(data.maxCapacity);
+        if (data.announcement) setAnnouncement(data.announcement);
       }
     } catch (e) {
       console.error('Error fetching notes', e);
@@ -321,6 +336,31 @@ export default function HomePage() {
             <span className="hidden md:inline">ช่วยเหลือทางใจ</span>
           </Link>
 
+          {/* Admin Dashboard / Login Button */}
+          {isAdmin ? (
+            <button
+              type="button"
+              onClick={() => setIsAdminDashboardOpen(true)}
+              className="px-2 sm:px-3 py-1.5 sm:py-2 min-h-[36px] sm:min-h-[42px] rounded-lg sm:rounded-xl bg-amber-600/30 hover:bg-amber-600/50 border border-amber-500/60 text-amber-200 flex items-center gap-1.5 text-xs font-semibold active:scale-95 transition-all shadow-xs"
+              title="แผงควบคุมครูเวร (Admin)"
+              aria-label="แผงควบคุมครูเวร"
+            >
+              <ShieldCheck className="w-4 h-4 text-amber-300" />
+              <span className="hidden sm:inline">ครูเวร (Admin)</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsAdminLoginOpen(true)}
+              className="p-1.5 sm:px-3 sm:py-2 min-h-[36px] sm:min-h-[42px] min-w-[36px] sm:min-w-[42px] rounded-lg sm:rounded-xl bg-black/30 hover:bg-black/50 border border-amber-900/50 text-amber-300/80 hover:text-amber-200 flex items-center justify-center gap-1.5 text-xs font-medium active:scale-95 transition-all shadow-xs"
+              title="เข้าสู่ระบบครูเวร / Admin"
+              aria-label="เข้าสู่ระบบครูเวร"
+            >
+              <Key className="w-4 h-4" />
+              <span className="hidden md:inline">Admin</span>
+            </button>
+          )}
+
           {/* Dark Mode toggle */}
           <button
             type="button"
@@ -412,8 +452,8 @@ export default function HomePage() {
                   <span className="chalk-font text-[10px] sm:text-sm tracking-wide opacity-80">
                     กระดานห้องเรียน Yanin 🏫
                   </span>
-                  <span className="text-[9px] sm:text-xs text-stone-300/60 postit-handwriting hidden xs:inline">
-                    เวรประจำวัน: ช่วยกันส่งต่อรอยยิ้ม
+                  <span className="text-[9px] sm:text-xs text-stone-300/80 postit-handwriting hidden xs:inline">
+                    {announcement || 'เวรประจำวัน: ช่วยกันส่งต่อรอยยิ้ม'}
                   </span>
                 </div>
 
@@ -532,6 +572,8 @@ export default function HomePage() {
       <NoteDetailModal
         note={selectedNote}
         onClose={() => setSelectedNote(null)}
+        isAdmin={isAdmin}
+        adminToken={adminToken}
         onNoteDeleted={(deletedId) => {
           setNotes((prev) => prev.filter((n) => n.id !== deletedId));
         }}
@@ -539,6 +581,35 @@ export default function HomePage() {
           setNotes((prev) =>
             prev.map((n) => (n.id === updatedId ? { ...n, reaction_counts: counts } : n))
           );
+        }}
+      />
+
+      {/* Admin Login Modal (Public users NEVER have to login) */}
+      <AdminLoginModal
+        isOpen={isAdminLoginOpen}
+        onClose={() => setIsAdminLoginOpen(false)}
+        onLoginSuccess={(token) => {
+          setIsAdmin(true);
+          setAdminToken(token);
+          setIsAdminDashboardOpen(true);
+        }}
+      />
+
+      {/* Admin Management Dashboard Modal */}
+      <AdminDashboardModal
+        isOpen={isAdminDashboardOpen}
+        onClose={() => setIsAdminDashboardOpen(false)}
+        adminToken={adminToken}
+        onLogout={() => {
+          setIsAdmin(false);
+          setAdminToken('');
+          setIsAdminDashboardOpen(false);
+        }}
+        onBoardReset={() => {
+          fetchNotes();
+        }}
+        onAnnouncementUpdated={(newText) => {
+          setAnnouncement(newText);
         }}
       />
     </main>

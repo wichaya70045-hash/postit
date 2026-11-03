@@ -34,6 +34,7 @@ export async function GET(request: NextRequest) {
       notes: result.notes,
       maxCapacity: result.maxCapacity,
       fallenNotes: result.fallenNotes,
+      announcement: (result as any).announcement || 'เวรประจำวัน: ช่วยกันส่งต่อรอยยิ้ม',
     });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

@@ -11,6 +11,8 @@ interface NoteDetailModalProps {
   onClose: () => void;
   onNoteDeleted?: (id: string) => void;
   onReactionUpdated?: (id: string, counts: Note['reaction_counts']) => void;
+  isAdmin?: boolean;
+  adminToken?: string;
 }
 
 const REACTIONS: { type: ReactionType; label: string; icon: string }[] = [
@@ -33,6 +35,8 @@ export const NoteDetailModal: React.FC<NoteDetailModalProps> = ({
   onClose,
   onNoteDeleted,
   onReactionUpdated,
+  isAdmin = false,
+  adminToken = '',
 }) => {
   const [userReactions, setUserReactions] = useState<ReactionType[]>([]);
   const [currentCounts, setCurrentCounts] = useState<Note['reaction_counts']>({
@@ -156,6 +160,33 @@ export const NoteDetailModal: React.FC<NoteDetailModalProps> = ({
     }
   };
 
+  const handleAdminDelete = async () => {
+    if (!note) return;
+    if (!window.confirm('คุณเป็น Admin: ต้องการลบโพสต์นี้ถาวรใช่ไหม?')) return;
+    setIsDeleting(true);
+    try {
+      const res = await fetch('/api/admin/action', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': adminToken,
+        },
+        body: JSON.stringify({ note_id: note.id, action: 'delete' }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        if (onNoteDeleted) onNoteDeleted(note.id);
+        onClose();
+      } else {
+        alert(data.error || 'ลบไม่สำเร็จ');
+      }
+    } catch (err: any) {
+      alert(err.message);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-40 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
       <div
@@ -200,6 +231,18 @@ export const NoteDetailModal: React.FC<NoteDetailModalProps> = ({
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       <span>{isDeleting ? 'กำลังลบ...' : 'ลบโพสต์ของฉัน'}</span>
+                    </button>
+                  )}
+
+                  {isAdmin && (
+                    <button
+                      type="button"
+                      onClick={handleAdminDelete}
+                      disabled={isDeleting}
+                      className="w-full px-4 py-2.5 text-xs text-left text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 flex items-center gap-2 border-t border-stone-100 dark:border-stone-700 font-bold"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span>{isDeleting ? 'กำลังลบ...' : 'ลบโพสต์ (Admin)'}</span>
                     </button>
                   )}
                 </div>
