@@ -1,0 +1,19 @@
+{
+  "name": "กระดานระบายใจ - Yaninboard",
+  "short_name": "ระบายใจ",
+  "description": "กระดานโพสต์อิทออนไลน์ระบายความรู้สึกโดยไม่ระบุตัวตน อบอุ่น และปลอดภัย",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f0e6",
+  "theme_color": "#f5f0e6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="128" fill="#f5f0e6"/>
+  <!-- Post-it shape with tilt -->
+  <g transform="rotate(-3 256 256)">
+    <rect x="96" y="96" width="320" height="320" rx="16" fill="#fef08a" filter="drop-shadow(0 12px 24px rgba(0,0,0,0.15))"/>
+    <!-- Washi tape -->
+    <rect x="206" y="80" width="100" height="32" rx="4" fill="#fef9c3" opacity="0.8" transform="rotate(-2 256 96)"/>
+    <!-- Warm smiling heart -->
+    <path d="M256 320s-64-44-64-90a42 42 0 0 1 70-30 42 42 0 0 1 70 30c0 46-64 90-64 90z" fill="#f59e0b"/>
+  </g>
+</svg>
+
