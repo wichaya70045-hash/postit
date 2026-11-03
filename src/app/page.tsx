@@ -134,11 +134,9 @@ export default function HomePage() {
           .then((data) => {
             if (data.success && data.notes) {
               setNotes((prev) => {
-                const existingMap = new Map(prev.map((n) => [n.id, n]));
-                data.notes.forEach((n: Note) => {
-                  existingMap.set(n.id, n);
-                });
-                return Array.from(existingMap.values());
+                const serverMap = new Map(data.notes.map((n: Note) => [n.id, n]));
+                const fallingList = prev.filter((n) => fallingNoteIds.has(n.id) && !serverMap.has(n.id));
+                return [...data.notes, ...fallingList];
               });
             }
           })
@@ -146,7 +144,7 @@ export default function HomePage() {
       }
     }, 3000);
     return () => clearInterval(timer);
-  }, [currentTab, isComposerOpen]);
+  }, [currentTab, isComposerOpen, fallingNoteIds]);
 
   // Handle Drag Over Chalkboard
   const handleDragOver = (e: React.DragEvent) => {
@@ -275,6 +273,14 @@ export default function HomePage() {
         paddingTop: 'calc(env(safe-area-inset-top, 0px) + 8px)',
       }}
     >
+      {/* Ambient Thai Classroom AI Background */}
+      <div
+        className="fixed inset-0 pointer-events-none z-0 opacity-25 dark:opacity-15 bg-cover bg-center transition-opacity"
+        style={{
+          backgroundImage: `url('/images/thai-classroom-bg.jpg')`,
+        }}
+        aria-hidden="true"
+      />
       {/* Thai Classroom Header Navigation */}
       <header className="w-full max-w-7xl mx-auto px-2.5 sm:px-6 py-1.5 sm:py-2.5 flex items-center justify-between z-30">
         {/* School / Classroom Branding */}

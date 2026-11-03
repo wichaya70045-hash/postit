@@ -48,16 +48,17 @@ export async function DELETE(
     const { id } = await params;
     const body = await request.json().catch(() => ({}));
     const editToken = body.edit_token;
+    const deviceHash = body.device_hash;
     const isAdmin = verifyAdmin(request, body.admin_token || body.admin_key);
 
-    if (!editToken && !isAdmin) {
+    if (!editToken && !deviceHash && !isAdmin) {
       return NextResponse.json(
         { success: false, error: 'ต้องใช้โทเคนยืนยันหรือสิทธิ์แอดมินเพื่อลบโพสต์' },
         { status: 401 }
       );
     }
 
-    await db.deleteNote(id, editToken, isAdmin);
+    await db.deleteNote(id, editToken, isAdmin, deviceHash);
     return NextResponse.json({ success: true, message: 'ลบโพสต์เรียบร้อยแล้ว' });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 400 });

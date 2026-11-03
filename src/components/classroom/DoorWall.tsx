@@ -14,7 +14,7 @@ export const DoorWall: React.FC<DoorWallProps> = ({ onGoToBoard }) => {
   const [sweptCount, setSweptCount] = useState(0);
 
   const handleKnock = () => {
-    setIsDoorAjar(true);
+    setIsDoorAjar((prev) => !prev);
     const messages = [
       'ก๊อกๆ! "เชิญเข้ามาได้เลยจ้า ห้องเรียนนี้ยินดีต้อนรับทุกคนเสมอ!" 💛',
       'ก๊อกๆ! เสียงเพื่อนแว่วมาจากระเบียง: "อย่าลืมกินข้าวเที่ยงด้วยนะ!" 🍱',
@@ -136,15 +136,21 @@ export const DoorWall: React.FC<DoorWallProps> = ({ onGoToBoard }) => {
 
           {/* Door Frame */}
           <div className="relative w-44 sm:w-64 h-64 sm:h-96 rounded-t-xl sm:rounded-t-2xl border-4 sm:border-8 border-[#4d2b0e] bg-[#2a1608] shadow-xl sm:shadow-2xl overflow-hidden flex flex-col">
-            {/* Hallway Backdrop (Seen when door is ajar) */}
-            <div className="absolute inset-0 bg-gradient-to-b from-sky-200 via-amber-100 to-stone-200 flex flex-col items-center justify-center p-3 text-center">
-              <span className="text-2xl mb-1">🏫</span>
-              <p className="text-xs font-bold text-stone-800">ระเบียงโรงเรียน Yanin</p>
-              <p className="text-[10px] text-stone-600 mt-1 max-w-[140px]">
-                มีเสียงลมพัดและกลิ่นขนมจากโรงอาหารลอยมา...
-              </p>
-              <div className="mt-2 text-[10px] bg-amber-500 text-white px-2 py-0.5 rounded-full font-semibold">
-                ทางเดินสู่ห้องสมุด (เร็วๆ นี้)
+            {/* Hallway Backdrop with Thai School AI Scenery (Seen when door is ajar) */}
+            <div
+              className="absolute inset-0 bg-cover bg-center flex flex-col items-center justify-center p-3 text-center"
+              style={{ backgroundImage: `url('/images/thai-school-window-view.jpg')` }}
+            >
+              <div className="absolute inset-0 bg-black/35 backdrop-blur-[0.5px]" />
+              <div className="relative z-10 flex flex-col items-center">
+                <span className="text-2xl mb-1 drop-shadow-md">🏫</span>
+                <p className="text-xs font-bold text-white drop-shadow-md">ระเบียงโรงเรียน Yanin</p>
+                <p className="text-[10px] text-amber-100 mt-1 max-w-[140px] drop-shadow-md">
+                  มองออกไปเห็นทิวไม้และสนามหญ้าหน้าเสาธง...
+                </p>
+                <div className="mt-2 text-[9px] bg-amber-600/90 text-white px-2 py-0.5 rounded-full font-semibold shadow-xs">
+                  ทางเดินสู่สนามโรงเรียน ✨
+                </div>
               </div>
             </div>
 

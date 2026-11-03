@@ -352,7 +352,7 @@ export const db = {
     return { hidden };
   },
 
-  async deleteNote(noteId: string, editToken?: string, isAdmin = false): Promise<boolean> {
+  async deleteNote(noteId: string, editToken?: string, isAdmin = false, deviceHash?: string): Promise<boolean> {
     const data = loadLocalDB();
     let index = -1;
     if (isAdmin) {
@@ -360,6 +360,8 @@ export const db = {
     } else if (editToken) {
       const hashed = sha256(editToken);
       index = data.notes.findIndex((n) => n.id === noteId && n.edit_token_hash === hashed);
+    } else if (deviceHash) {
+      index = data.notes.findIndex((n) => n.id === noteId && n.device_hash === deviceHash);
     }
     if (index === -1) {
       throw new Error('ไม่พบโพสต์หรือคุณไม่มีสิทธิ์ลบโพสต์นี้');

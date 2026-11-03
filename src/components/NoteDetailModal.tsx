@@ -143,7 +143,7 @@ export const NoteDetailModal: React.FC<NoteDetailModalProps> = ({
       const res = await fetch(`/api/notes/${note.id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ edit_token: editToken }),
+        body: JSON.stringify({ edit_token: editToken, device_hash: getOrCreateDeviceId() }),
       });
       const data = await res.json();
       if (data.success) {
