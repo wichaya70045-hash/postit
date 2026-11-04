@@ -144,6 +144,13 @@ export const BackWall: React.FC<BackWallProps> = ({ onGoToBoard }) => {
 
   return (
     <div className="relative flex-1 w-full min-h-[70vh] sm:min-h-[82vh] rounded-xl sm:rounded-2xl overflow-hidden border-4 sm:border-[16px] border-[#533114] shadow-xl sm:shadow-2xl bg-[#edd6b3] dark:bg-[#1a1f1b] flex flex-col justify-between transition-colors">
+      {/* Ambient AI Thai Classroom Back Wall Background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-40 dark:opacity-25"
+        style={{ backgroundImage: `url('/images/thai-classroom-back.jpg')` }}
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 bg-stone-900/20 dark:bg-black/50 pointer-events-none" />
       {/* Wall Header: Classroom Clock and Title */}
       <div className="px-3 sm:px-6 pt-2.5 sm:pt-4 pb-1.5 sm:pb-2 flex items-center justify-between z-20">
         <div className="flex items-center gap-1.5 sm:gap-2">
@@ -172,11 +179,14 @@ export const BackWall: React.FC<BackWallProps> = ({ onGoToBoard }) => {
       </div>
 
       {/* Main Corkboard Section (บอร์ดไม้ก๊อกขนาดใหญ่หลังห้อง) */}
-      <div className="flex-1 px-2 sm:px-8 py-2 sm:py-3 flex flex-col justify-center overflow-y-auto">
-        {/* Corkboard Frame */}
-        <div className="w-full relative rounded-xl sm:rounded-2xl border-4 sm:border-8 border-[#7a481e] bg-[#cf9a63] dark:bg-[#2b241c] p-2.5 sm:p-6 shadow-xl sm:shadow-2xl overflow-hidden">
-          {/* Cork texture overlay */}
-          <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#3a1e0b_1px,transparent_1px)] [background-size:12px_12px]" />
+      <div className="flex-1 px-2 sm:px-8 py-2 sm:py-3 flex flex-col justify-center overflow-y-auto relative z-10">
+        {/* Corkboard Frame with AI Back Wall Background */}
+        <div
+          className="w-full relative rounded-xl sm:rounded-2xl border-4 sm:border-8 border-[#7a481e] bg-cover bg-center p-2.5 sm:p-6 shadow-xl sm:shadow-2xl overflow-hidden"
+          style={{ backgroundImage: `url('/images/thai-classroom-back.jpg')` }}
+        >
+          {/* Subtle warm overlay to keep text clear */}
+          <div className="absolute inset-0 bg-[#3a200e]/40 dark:bg-black/65 backdrop-blur-[0.5px] pointer-events-none" />
 
           {/* Banner Pinned to Corkboard */}
           <div className="relative mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 bg-[#fdfbf7] dark:bg-stone-900/90 p-3 rounded-xl border border-amber-900/30 shadow-md">

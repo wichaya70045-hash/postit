@@ -297,6 +297,12 @@ export const CommunityWall: React.FC<CommunityWallProps> = ({
 
   return (
     <div className="relative flex-1 w-full min-h-[70vh] sm:min-h-[82vh] rounded-xl sm:rounded-2xl overflow-hidden border-4 sm:border-[16px] border-[#533114] shadow-xl sm:shadow-2xl bg-[#fdfbf7] dark:bg-[#141e17] flex flex-col justify-between transition-colors">
+      {/* Ambient Thai School Scenery Backdrop */}
+      <div
+        className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-25 dark:opacity-15"
+        style={{ backgroundImage: `url('/images/thai-school-window-view.jpg')` }}
+        aria-hidden="true"
+      />
       {/* Wall Header: Classroom Discussion Board Sign */}
       <div className="px-3 sm:px-6 py-2 sm:py-3 border-b border-[#e5dcd0] dark:border-stone-800 bg-[#f7f2eb] dark:bg-[#19241d] flex items-center justify-between z-20 shadow-xs">
         <div className="flex items-center gap-2 sm:gap-3">
@@ -355,7 +361,7 @@ export const CommunityWall: React.FC<CommunityWallProps> = ({
       </div>
 
       {/* Messages Stream */}
-      <div className="flex-1 overflow-y-auto px-3 sm:px-6 py-3 sm:py-4 space-y-3 sm:space-y-4">
+      <div className="flex-1 overflow-y-auto px-3 sm:px-6 py-3 sm:py-4 space-y-3 sm:space-y-4 relative z-10">
         {loading ? (
           <div className="py-20 text-center text-xs text-stone-400 flex flex-col items-center justify-center gap-2">
             <RefreshCw className="w-5 h-5 animate-spin text-amber-600" />

@@ -39,6 +39,13 @@ export const DoorWall: React.FC<DoorWallProps> = ({ onGoToBoard }) => {
 
   return (
     <div className="relative flex-1 w-full min-h-[70vh] sm:min-h-[82vh] rounded-xl sm:rounded-2xl overflow-hidden border-4 sm:border-[16px] border-[#533114] shadow-xl sm:shadow-2xl bg-[#fdfbf7] dark:bg-[#1a231d] flex flex-col justify-between transition-colors">
+      {/* Ambient AI Thai Classroom Door Background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-45 dark:opacity-25"
+        style={{ backgroundImage: `url('/images/thai-classroom-door.jpg')` }}
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 bg-stone-950/20 dark:bg-black/55 pointer-events-none" />
       {/* Wall Header: Classroom Plate */}
       <div className="px-3 sm:px-6 pt-2.5 sm:pt-4 pb-1.5 sm:pb-2 flex items-center justify-between z-20">
         <div className="flex items-center gap-1.5 sm:gap-2">
@@ -75,9 +82,9 @@ export const DoorWall: React.FC<DoorWallProps> = ({ onGoToBoard }) => {
       {/* Main Door Wall Scene */}
       <div className="flex-1 px-3 sm:px-10 py-2 sm:py-4 flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-6 overflow-y-auto">
         {/* Left Section: Timetable & Duty Board */}
-        <div className="w-full md:w-64 flex flex-col gap-3">
+        <div className="w-full md:w-64 flex flex-col gap-3 relative z-10">
           {/* School Timetable Plaque */}
-          <div className="p-3.5 bg-amber-50 dark:bg-stone-900 rounded-2xl border-2 border-amber-800/40 shadow-md">
+          <div className="p-3.5 bg-amber-50/90 dark:bg-stone-900/90 backdrop-blur-md rounded-2xl border-2 border-amber-800/40 shadow-lg">
             <div className="flex items-center gap-1.5 text-xs font-bold text-amber-900 dark:text-amber-200 border-b border-amber-300 dark:border-stone-700 pb-1.5 mb-2">
               <Calendar className="w-3.5 h-3.5 text-amber-700" />
               <span>ตารางเรียนวิชาความสุข</span>
@@ -103,7 +110,7 @@ export const DoorWall: React.FC<DoorWallProps> = ({ onGoToBoard }) => {
           </div>
 
           {/* Cleaning Corner (มุมเวรประจำวัน) */}
-          <div className="p-3 bg-stone-100 dark:bg-stone-800/80 rounded-2xl border border-stone-300 dark:border-stone-700 flex items-center justify-between">
+          <div className="p-3 bg-stone-100/90 dark:bg-stone-800/90 backdrop-blur-md rounded-2xl border border-stone-300 dark:border-stone-700 shadow-md flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-2xl">🧹</span>
               <div>
@@ -126,7 +133,7 @@ export const DoorWall: React.FC<DoorWallProps> = ({ onGoToBoard }) => {
         </div>
 
         {/* Center Section: Vintage Classroom Wooden Door */}
-        <div className="relative flex flex-col items-center">
+        <div className="relative flex flex-col items-center z-10">
           {/* Room Nameplate Above Door */}
           <div className="mb-2 px-5 py-1 rounded-lg bg-[#533114] border-2 border-[#b87333] shadow-md text-center">
             <span className="text-xs font-bold text-amber-200 tracking-wider">
@@ -139,17 +146,17 @@ export const DoorWall: React.FC<DoorWallProps> = ({ onGoToBoard }) => {
             {/* Hallway Backdrop with Thai School AI Scenery (Seen when door is ajar) */}
             <div
               className="absolute inset-0 bg-cover bg-center flex flex-col items-center justify-center p-3 text-center"
-              style={{ backgroundImage: `url('/images/thai-school-window-view.jpg')` }}
+              style={{ backgroundImage: `url('/images/thai-classroom-door.jpg')` }}
             >
-              <div className="absolute inset-0 bg-black/35 backdrop-blur-[0.5px]" />
+              <div className="absolute inset-0 bg-black/40 backdrop-blur-[0.5px]" />
               <div className="relative z-10 flex flex-col items-center">
                 <span className="text-2xl mb-1 drop-shadow-md">🏫</span>
                 <p className="text-xs font-bold text-white drop-shadow-md">ระเบียงโรงเรียน Yanin</p>
                 <p className="text-[10px] text-amber-100 mt-1 max-w-[140px] drop-shadow-md">
-                  มองออกไปเห็นทิวไม้และสนามหญ้าหน้าเสาธง...
+                  แสงแดดอบอุ่นส่องระเบียงอาคารเรียนไม้...
                 </p>
                 <div className="mt-2 text-[9px] bg-amber-600/90 text-white px-2 py-0.5 rounded-full font-semibold shadow-xs">
-                  ทางเดินสู่สนามโรงเรียน ✨
+                  ทางเดินสู่อาคารเรียน ✨
                 </div>
               </div>
             </div>
@@ -219,30 +226,30 @@ export const DoorWall: React.FC<DoorWallProps> = ({ onGoToBoard }) => {
         </div>
 
         {/* Right Section: Student Shoe Rack & Hallway Teaser */}
-        <div className="w-full md:w-60 flex flex-col gap-3">
+        <div className="w-full md:w-60 flex flex-col gap-3 relative z-10">
           {/* Shoe Rack (ชั้นวางรองเท้านักเรียน) */}
-          <div className="p-3 bg-amber-900/10 dark:bg-stone-900 rounded-2xl border-2 border-amber-900/30">
+          <div className="p-3 bg-amber-900/20 dark:bg-stone-900/90 backdrop-blur-md rounded-2xl border-2 border-amber-900/40 shadow-lg">
             <div className="text-xs font-bold text-amber-950 dark:text-amber-200 mb-1.5 flex items-center gap-1.5">
               <span>👞 ชั้นวางรองเท้านักเรียน</span>
             </div>
             <div className="grid grid-cols-3 gap-1.5 text-center text-xs">
-              <div className="bg-amber-100 dark:bg-stone-800 p-1.5 rounded-lg border border-amber-300/40 shadow-2xs">
+              <div className="bg-amber-100/80 dark:bg-stone-800 p-1.5 rounded-lg border border-amber-300/40 shadow-2xs">
                 👟 ดำ
               </div>
-              <div className="bg-amber-100 dark:bg-stone-800 p-1.5 rounded-lg border border-amber-300/40 shadow-2xs">
+              <div className="bg-amber-100/80 dark:bg-stone-800 p-1.5 rounded-lg border border-amber-300/40 shadow-2xs">
                 👟 น้ำตาล
               </div>
-              <div className="bg-amber-100 dark:bg-stone-800 p-1.5 rounded-lg border border-amber-300/40 shadow-2xs">
+              <div className="bg-amber-100/80 dark:bg-stone-800 p-1.5 rounded-lg border border-amber-300/40 shadow-2xs">
                 👟 ขาว
               </div>
             </div>
-            <p className="text-[10px] text-stone-500 dark:text-stone-400 text-center mt-1.5">
+            <p className="text-[10px] text-stone-600 dark:text-stone-300 text-center mt-1.5">
               วางรองเท้าให้ตรงคู่ แล้วเดินเข้าห้องอย่างสบายใจ
             </p>
           </div>
 
           {/* Future Exploration Teaser Card */}
-          <div className="p-3.5 bg-gradient-to-br from-amber-600/10 via-amber-500/5 to-transparent rounded-2xl border border-amber-500/30">
+          <div className="p-3.5 bg-amber-50/85 dark:bg-stone-900/85 backdrop-blur-md rounded-2xl border border-amber-500/40 shadow-lg">
             <div className="flex items-center gap-1.5 text-xs font-bold text-amber-900 dark:text-amber-200 mb-1">
               <Sparkles className="w-3.5 h-3.5 text-amber-600" />
               <span>ก้าวออกนอกห้องเรียน (เร็วๆ นี้)</span>

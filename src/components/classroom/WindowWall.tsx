@@ -89,59 +89,29 @@ export const WindowWall: React.FC<WindowWallProps> = ({ isDarkMode, onGoToBoard 
             </button>
           </div>
 
-          {/* Outside View (Day / Night Sky with Nature) */}
+          {/* Outside View: Beautiful AI Generated Thai School Scenery */}
           <div
-            className={`relative flex-1 w-full overflow-hidden transition-all duration-700 ${
-              isDarkMode
-                ? 'bg-gradient-to-b from-[#09152a] via-[#10243e] to-[#1c3857]'
-                : 'bg-gradient-to-b from-[#60a5fa] via-[#93c5fd] to-[#dbeafe]'
-            }`}
+            className="relative flex-1 w-full overflow-hidden bg-cover bg-center transition-all duration-700"
+            style={{ backgroundImage: `url('/images/thai-school-window-view.jpg')` }}
           >
-            {/* Celestial Body: Sun or Moon */}
-            <div className="absolute top-5 right-12 transition-transform duration-700">
+            {/* Night mode soft dimming */}
+            {isDarkMode && (
+              <div className="absolute inset-0 bg-slate-950/65 backdrop-blur-[0.5px]" />
+            )}
+
+            {/* Sun / Moon subtle celestial glow */}
+            <div className="absolute top-4 right-8 transition-transform duration-700">
               {isDarkMode ? (
                 <div className="relative">
-                  <Moon className="w-12 h-12 text-amber-200 drop-shadow-[0_0_15px_rgba(253,230,138,0.8)]" />
+                  <Moon className="w-10 h-10 text-amber-200 drop-shadow-[0_0_15px_rgba(253,230,138,0.8)]" />
                   <div className="absolute -top-1 -right-2 text-xs">✨</div>
                 </div>
               ) : (
                 <div className="relative">
-                  <Sun className="w-14 h-14 text-amber-400 drop-shadow-[0_0_20px_rgba(251,191,36,0.9)] animate-pulse" />
+                  <Sun className="w-12 h-12 text-amber-300 drop-shadow-[0_0_20px_rgba(251,191,36,0.9)] animate-pulse" />
                   <div className="absolute inset-0 bg-amber-300/20 rounded-full blur-xl scale-150" />
                 </div>
               )}
-            </div>
-
-            {/* Drifting Clouds */}
-            <div className="absolute top-8 left-8 flex items-center gap-1 opacity-70 animate-pulse">
-              <Cloud className="w-14 h-10 text-white" />
-            </div>
-            <div className="absolute top-16 right-36 flex items-center gap-1 opacity-60">
-              <Cloud className="w-10 h-7 text-white" />
-            </div>
-
-            {/* Schoolyard Trees & Flagpole in the distance */}
-            <div className="absolute bottom-0 inset-x-0 h-28 pointer-events-none flex items-end justify-between px-6">
-              {/* Rain tree (ต้นจามจุรีใหญ่) */}
-              <div className="flex flex-col items-center opacity-90">
-                <div className="w-32 h-20 bg-emerald-800 dark:bg-emerald-950 rounded-full blur-[1px] shadow-lg -mb-3" />
-                <div className="w-24 h-16 bg-emerald-700 dark:bg-emerald-900 rounded-full -mb-2" />
-                <div className="w-4 h-14 bg-amber-950 rounded-t-sm" />
-              </div>
-
-              {/* School Flagpole */}
-              <div className="flex flex-col items-center opacity-85">
-                <div className="w-5 h-3 bg-red-600 rounded-xs shadow-xs mb-1" />
-                <div className="w-0.5 h-20 bg-stone-300" />
-                <div className="w-6 h-2 bg-stone-500 rounded-xs" />
-              </div>
-
-              {/* Garden shrubs */}
-              <div className="flex items-end gap-1 opacity-80">
-                <div className="w-16 h-12 bg-emerald-600 dark:bg-emerald-800 rounded-t-full" />
-                <div className="w-20 h-16 bg-emerald-700 dark:bg-emerald-900 rounded-t-full" />
-                <div className="w-14 h-10 bg-emerald-500 dark:bg-emerald-700 rounded-t-full" />
-              </div>
             </div>
 
             {/* Floating Breeze Particles when window is open */}
