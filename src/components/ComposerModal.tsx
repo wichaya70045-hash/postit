@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { NoteStroke, CreateNotePayload } from '@/types/note';
+import { NoteStroke, CreateNotePayload, Note } from '@/types/note';
 import { DrawingCanvas } from './DrawingCanvas';
 import { CrisisModal } from './CrisisModal';
 import { checkSafety } from '@/lib/safety';
@@ -11,7 +11,7 @@ import { X, Send, AlertCircle, GripHorizontal, Pipette, Palette } from 'lucide-r
 interface ComposerModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onPostSuccess: () => void;
+  onPostSuccess: (note?: Note) => void;
   onStartDragNote?: (notePayload: Partial<CreateNotePayload>) => void;
 }
 
@@ -136,7 +136,7 @@ export const ComposerModal: React.FC<ComposerModalProps> = ({
       }
 
       clearDraft();
-      onPostSuccess();
+      onPostSuccess(data.note);
       onClose();
     } catch (err: any) {
       setPiiError(err.message || 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
@@ -347,9 +347,19 @@ export const ComposerModal: React.FC<ComposerModalProps> = ({
             </button>
             <button
               type="button"
-              onClick={() => executeSubmit(false)}
-              disabled={isSubmitting || !isReadyToPost}
-              className="min-h-[48px] px-6 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold flex items-center justify-center gap-2 shadow-sm active:scale-98 disabled:opacity-40 transition-all"
+              onClick={() => {
+                if (!isReadyToPost) {
+                  setPiiError(tab === 'text' ? 'กรุณาพิมพ์ข้อความก่อนแปะลงบนกระดานนะ' : 'กรุณาวาดภาพก่อนแปะลงบนกระดานนะ');
+                  return;
+                }
+                executeSubmit(false);
+              }}
+              disabled={isSubmitting}
+              className={`min-h-[48px] px-6 rounded-xl text-white text-sm font-semibold flex items-center justify-center gap-2 shadow-sm active:scale-98 transition-all ${
+                isReadyToPost
+                  ? 'bg-amber-600 hover:bg-amber-700 cursor-pointer shadow-amber-600/30'
+                  : 'bg-amber-600/60 hover:bg-amber-600/80 cursor-pointer'
+              } ${isSubmitting ? 'opacity-60 cursor-not-allowed' : ''}`}
             >
               <Send className="w-4 h-4" />
               <span>{isSubmitting ? 'กำลังแปะ...' : 'แปะบนกระดาน'}</span>

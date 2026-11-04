@@ -135,7 +135,12 @@ function getInitialSampleNotes(): Array<Note & { edit_token_hash: string }> {
   ];
 }
 
+let memoryCache: LocalDBData | null = null;
+
 function loadLocalDB(): LocalDBData {
+  if (memoryCache) {
+    return memoryCache;
+  }
   try {
     if (!fs.existsSync(LOCAL_STORAGE_DIR)) {
       fs.mkdirSync(LOCAL_STORAGE_DIR, { recursive: true });
@@ -153,17 +158,20 @@ function loadLocalDB(): LocalDBData {
       return initial;
     }
     const raw = fs.readFileSync(LOCAL_STORAGE_FILE, 'utf-8');
-    if (!raw.trim()) {
-      return {
-        notes: [],
+    const cleanRaw = raw.replace(/^\uFEFF/, '').trim();
+    if (!cleanRaw) {
+      const initial: LocalDBData = {
+        notes: getInitialSampleNotes(),
         reactions: [],
         reports: [],
         admin_actions: [],
         chat_messages: getInitialSampleChat(),
         deleted_note_ids: [],
       };
+      saveLocalDB(initial);
+      return initial;
     }
-    const parsed: LocalDBData = JSON.parse(raw);
+    const parsed: LocalDBData = JSON.parse(cleanRaw);
     if (!parsed.deleted_note_ids) {
       parsed.deleted_note_ids = [];
     }
@@ -177,23 +185,24 @@ function loadLocalDB(): LocalDBData {
     }
     if (parsed.allow_profanity === undefined) {
       parsed.allow_profanity = true;
-      saveLocalDB(parsed);
     }
     if (!parsed.chat_messages || parsed.chat_messages.length === 0) {
       parsed.chat_messages = getInitialSampleChat();
-      saveLocalDB(parsed);
     }
+    memoryCache = parsed;
     return parsed;
   } catch (e) {
     console.error('Error loading local DB', e);
-    return {
-      notes: [],
+    const fallback: LocalDBData = {
+      notes: getInitialSampleNotes(),
       reactions: [],
       reports: [],
       admin_actions: [],
       chat_messages: getInitialSampleChat(),
       deleted_note_ids: [],
     };
+    memoryCache = fallback;
+    return fallback;
   }
 }
 
@@ -210,15 +219,10 @@ function saveLocalDB(data: LocalDBData): void {
       const deletedSet = new Set(data.deleted_note_ids);
       data.notes = data.notes.filter((n) => !deletedSet.has(n.id));
     }
-    const tempFile = path.join(
-      LOCAL_STORAGE_DIR,
-      `notes_db_${Date.now()}_${Math.random().toString(36).slice(2, 6)}.tmp`
-    );
-    fs.writeFileSync(tempFile, JSON.stringify(data, null, 2), 'utf-8');
-    fs.copyFileSync(tempFile, LOCAL_STORAGE_FILE);
-    try {
-      fs.unlinkSync(tempFile);
-    } catch {}
+    // Update authoritative in-memory cache immediately
+    memoryCache = data;
+    // Write directly to file
+    fs.writeFileSync(LOCAL_STORAGE_FILE, JSON.stringify(data, null, 2), 'utf-8');
   } catch (e) {
     console.error('Error saving local DB', e);
   }

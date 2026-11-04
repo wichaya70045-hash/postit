@@ -555,14 +555,22 @@ export default function HomePage() {
                 ))}
 
                 {notes.length === 0 && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 pointer-events-none z-10">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-10 pointer-events-none">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-black/40 text-amber-300 flex items-center justify-center mb-3 border border-amber-600/40">
                       <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
                     <h3 className="text-sm sm:text-base font-semibold text-amber-100 chalk-font">กระดานดำยังว่างอยู่</h3>
-                    <p className="text-[11px] sm:text-xs text-stone-300/70 mt-1">
-                      คลิก "+ แปะโพสต์อิท" แล้วลากแผ่นกระดาษมาติดบนกระดานได้เลย!
+                    <p className="text-[11px] sm:text-xs text-stone-300/70 mt-1 mb-3">
+                      คลิก "+ แปะโพสต์อิท" แล้วเขียนข้อความมาติดบนกระดานได้เลย!
                     </p>
+                    <button
+                      type="button"
+                      onClick={() => setIsComposerOpen(true)}
+                      className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white rounded-xl text-xs font-semibold shadow-md active:scale-95 transition-all flex items-center gap-1.5 border border-amber-400/40 cursor-pointer pointer-events-auto"
+                    >
+                      <Plus className="w-4 h-4 stroke-[2.5]" />
+                      <span>แปะโพสต์อิทแผ่นแรก</span>
+                    </button>
                   </div>
                 )}
               </div>
@@ -623,8 +631,11 @@ export default function HomePage() {
       <ComposerModal
         isOpen={isComposerOpen}
         onClose={() => setIsComposerOpen(false)}
-        onPostSuccess={() => {
+        onPostSuccess={(newNote?: Note) => {
           setCurrentWall('front');
+          if (newNote) {
+            setNotes((prev) => [newNote, ...prev.filter((n) => n.id !== newNote.id)]);
+          }
           fetchNotes();
         }}
         onStartDragNote={(payload) => {

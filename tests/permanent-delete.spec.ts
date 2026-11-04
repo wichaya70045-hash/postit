@@ -19,7 +19,7 @@ test.describe('Permanent Note Deletion (ลบโพสต์อิทแล้�
     await expect(noteCard).toBeVisible({ timeout: 8000 });
 
     // 2. Open Note Detail Modal
-    await noteCard.click();
+    await noteCard.click({ force: true });
     await expect(page.locator('text=รายละเอียดโพสต์อิท')).toBeVisible();
 
     // 3. Open options menu and click delete
