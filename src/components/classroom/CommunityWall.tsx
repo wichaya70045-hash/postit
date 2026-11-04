@@ -135,10 +135,19 @@ export const CommunityWall: React.FC<CommunityWallProps> = ({
   // Fetch Messages
   const fetchMessages = async () => {
     try {
-      const res = await fetch('/api/chat?limit=80');
+      const res = await fetch('/api/chat?limit=80', { cache: 'no-store' });
       const data = await res.json();
       if (data.success && data.messages) {
-        setMessages(data.messages);
+        setMessages((prev) => {
+          // Merge to protect newly sent messages from getting wiped out by polling lag
+          const serverMap = new Map(data.messages.map((m: ChatMessage) => [m.id, m]));
+          const pendingLocal = prev.filter(
+            (m) => !serverMap.has(m.id) && m.device_hash === deviceId && m.status === 'visible'
+          );
+          const combined = [...data.messages, ...pendingLocal];
+          combined.sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+          return combined;
+        });
       }
     } catch (e) {
       console.error('Error fetching chat messages', e);
@@ -151,7 +160,7 @@ export const CommunityWall: React.FC<CommunityWallProps> = ({
     fetchMessages();
     const interval = setInterval(fetchMessages, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [deviceId]);
 
   // Scroll to bottom on load
   const scrollToBottom = (smooth = true) => {
@@ -206,9 +215,9 @@ export const CommunityWall: React.FC<CommunityWallProps> = ({
 
       const data = await res.json();
       if (data.success && data.message) {
-        setMessages((prev) => [...prev, data.message]);
+        setMessages((prev) => [...prev.filter((m) => m.id !== data.message.id), data.message]);
         setInputText('');
-        setTimeout(() => scrollToBottom(true), 100);
+        setTimeout(() => scrollToBottom(true), 80);
       } else {
         setErrorNotice(data.error || 'ไม่สามารถส่งข้อความได้');
       }
@@ -733,9 +742,9 @@ export const CommunityWall: React.FC<CommunityWallProps> = ({
             });
             const data = await res.json();
             if (data.success && data.message) {
-              setMessages((prev) => [...prev, data.message]);
+              setMessages((prev) => [...prev.filter((m) => m.id !== data.message.id), data.message]);
               setInputText('');
-              setTimeout(() => scrollToBottom(true), 100);
+              setTimeout(() => scrollToBottom(true), 80);
             }
           } catch {} finally {
             setIsSubmitting(false);

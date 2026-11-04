@@ -136,11 +136,9 @@ function getInitialSampleNotes(): Array<Note & { edit_token_hash: string }> {
 }
 
 let memoryCache: LocalDBData | null = null;
+let lastMtimeMs = 0;
 
 function loadLocalDB(): LocalDBData {
-  if (memoryCache) {
-    return memoryCache;
-  }
   try {
     if (!fs.existsSync(LOCAL_STORAGE_DIR)) {
       fs.mkdirSync(LOCAL_STORAGE_DIR, { recursive: true });
@@ -157,9 +155,16 @@ function loadLocalDB(): LocalDBData {
       saveLocalDB(initial);
       return initial;
     }
+
+    const stat = fs.statSync(LOCAL_STORAGE_FILE);
+    if (memoryCache && stat.mtimeMs <= lastMtimeMs) {
+      return memoryCache;
+    }
+
     const raw = fs.readFileSync(LOCAL_STORAGE_FILE, 'utf-8');
     const cleanRaw = raw.replace(/^\uFEFF/, '').trim();
     if (!cleanRaw) {
+      if (memoryCache) return memoryCache;
       const initial: LocalDBData = {
         notes: getInitialSampleNotes(),
         reactions: [],
@@ -190,9 +195,11 @@ function loadLocalDB(): LocalDBData {
       parsed.chat_messages = getInitialSampleChat();
     }
     memoryCache = parsed;
+    lastMtimeMs = stat.mtimeMs;
     return parsed;
   } catch (e) {
     console.error('Error loading local DB', e);
+    if (memoryCache) return memoryCache;
     const fallback: LocalDBData = {
       notes: getInitialSampleNotes(),
       reactions: [],
@@ -223,6 +230,9 @@ function saveLocalDB(data: LocalDBData): void {
     memoryCache = data;
     // Write directly to file
     fs.writeFileSync(LOCAL_STORAGE_FILE, JSON.stringify(data, null, 2), 'utf-8');
+    try {
+      lastMtimeMs = fs.statSync(LOCAL_STORAGE_FILE).mtimeMs;
+    } catch {}
   } catch (e) {
     console.error('Error saving local DB', e);
   }

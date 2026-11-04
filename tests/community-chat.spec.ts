@@ -56,4 +56,37 @@ test.describe('Classroom Community Chat Wall (ด้านซ้าย - บอ�
     await expect(page.locator('text=นโยบายความปลอดภัยของคนเขียน')).toBeVisible();
     await page.locator('button:has-text("เข้าใจแล้ว")').click();
   });
+
+  test('เมื่อพิมพ์ข้อความและส่งไปแล้ว ข้อความไม่หายแม้ผ่านรอบ Polling หรือรีเฟรชหน้าเว็บ', async ({ page }) => {
+    await page.goto('/');
+
+    // 1. Navigate to Left Wall (ด้านซ้าย)
+    const leftWallBtn = page.locator('button:has-text("ด้านซ้าย")').first();
+    await leftWallBtn.click();
+    await expect(page.locator('text=ผนังด้านซ้าย: บอร์ดคุยกันนิรนาม (Community Chat)')).toBeVisible();
+
+    // 2. Type unique message
+    const persistentMsg = `ข้อความแชททดสอบไม่หาย ${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+    const chatInput = page.locator('input[placeholder*="พิมพ์ข้อความคุยกันได้เลย"]');
+    await chatInput.fill(persistentMsg);
+    await page.locator('button[aria-label="ส่งข้อความ"]').click();
+
+    // 3. Message should appear immediately
+    const messageLocator = page.locator(`text=${persistentMsg}`);
+    await expect(messageLocator).toBeVisible({ timeout: 5000 });
+
+    // 4. Wait through 2-3 polling cycles (4.5 seconds)
+    await page.waitForTimeout(4500);
+
+    // 5. Message MUST still be visible!
+    await expect(messageLocator).toBeVisible();
+
+    // 6. Hard reload the page
+    await page.reload();
+    await page.locator('button:has-text("ด้านซ้าย")').first().click();
+    await expect(page.locator('text=ผนังด้านซ้าย: บอร์ดคุยกันนิรนาม (Community Chat)')).toBeVisible();
+
+    // 7. Message must STILL be present after reload!
+    await expect(messageLocator).toBeVisible({ timeout: 5000 });
+  });
 });

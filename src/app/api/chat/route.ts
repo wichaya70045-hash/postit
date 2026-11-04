@@ -5,9 +5,18 @@ import { CreateChatMessagePayload } from '@/types/chat';
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const limit = parseInt(searchParams.get('limit') || '60', 10);
+    const limit = parseInt(searchParams.get('limit') || '80', 10);
     const messages = db.getChatMessages(limit);
-    return NextResponse.json({ success: true, messages });
+    return NextResponse.json(
+      { success: true, messages },
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          Pragma: 'no-cache',
+          Expires: '0',
+        },
+      }
+    );
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }

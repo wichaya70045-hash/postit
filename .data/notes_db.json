@@ -1,6 +1,248 @@
 {
   "notes": [
     {
+      "id": "note_1793756173654_jf4z8",
+      "kind": "text",
+      "body": "ทดสอบปุ่มแปะสำเร็จ 1793756173456-e2nwz",
+      "color": "#fef08a",
+      "posX": 6,
+      "posY": 61,
+      "rotation": 0.5,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-04T01:36:13.654Z",
+      "device_hash": "dev_w4wXkGJJkGaJtCllUtNVgjAJ",
+      "edit_token_hash": "465b8a3ed03d57eaffab6e385e4f06a089883ce7fbe6c54eb92ff4e03b432d76"
+    },
+    {
+      "id": "note_1793756173252_vcjh0",
+      "kind": "text",
+      "body": "ทดสอบปุ่มมือถือ 1793756172997-k8ioa",
+      "color": "#fef08a",
+      "posX": 8,
+      "posY": 45,
+      "rotation": -0.4,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-04T01:36:13.252Z",
+      "device_hash": "dev_QLbPtIi4kmhSj6g545f5wdzk",
+      "edit_token_hash": "0ff00a91a7e96196f5e818f8d19b99f7d248aef03b8a205edab1dbea6c9bb943"
+    },
+    {
+      "id": "note_1793756169551_d5yi7",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793756169294: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 36,
+      "posY": 11,
+      "rotation": 2.7,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-04T01:36:09.551Z",
+      "device_hash": "dev_aiNqWTpepoH4x0Zutyn87jDk",
+      "edit_token_hash": "0cc492af4e34c5535367c4841ff397f554b324b66d4450d27632d2f953c505fd"
+    },
+    {
+      "id": "note_1793756168691_nuq6g",
+      "kind": "text",
+      "body": "วันนี้แม่งเหนื่อยสัสๆ 1793756168421",
+      "color": "#fef08a",
+      "posX": 39,
+      "posY": 11,
+      "rotation": 1,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-04T01:36:08.691Z",
+      "device_hash": "dev_r0CFsxkNmXsNg15953eoQxph",
+      "edit_token_hash": "f8d57a13d579705cd7cc65e094db5d85319178e5440fd9a54a448a5488271ae2"
+    },
+    {
+      "id": "note_1793756166626_b0ny0",
+      "kind": "text",
+      "body": "ทดสอบปุ่มมือถือ 1793756166229-l4edw",
+      "color": "#fef08a",
+      "posX": 40,
+      "posY": 11,
+      "rotation": -2.9,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-04T01:36:06.626Z",
+      "device_hash": "dev_hOCRh8q8N1Ow5YUi2f6OEWLv",
+      "edit_token_hash": "36cb6e9b7072f470b00047bc3b4329867adc7a364d6065cc24d8f5870e4da475"
+    },
+    {
+      "id": "note_1793756166375_t37dk",
+      "kind": "text",
+      "body": "ทดสอบปุ่มแปะสำเร็จ 1793756166107-7e4p6",
+      "color": "#fef08a",
+      "posX": 9,
+      "posY": 61,
+      "rotation": -1.8,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-04T01:36:06.375Z",
+      "device_hash": "dev_pu6J8BZv9OxQlfiTAPcjSC3P",
+      "edit_token_hash": "85d84b92ae89f0712ded70ff31e345dd4bbe2749f310c0e67e4469d8e90c4320"
+    },
+    {
+      "id": "note_1793756163802_bpigk",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793756163562: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 37,
+      "posY": 9,
+      "rotation": 4.5,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-04T01:36:03.802Z",
+      "device_hash": "dev_scryPy354AkByjwy5ZsdORhd",
+      "edit_token_hash": "e45d1027eefdea308182c3be442f17c350c393b7ba72b088db4ad0e40f4ec044"
+    },
+    {
+      "id": "note_1793756162274_yl84x",
+      "kind": "text",
+      "body": "วันนี้แม่งเหนื่อยสัสๆ 1793756161863",
+      "color": "#fef08a",
+      "posX": 9,
+      "posY": 63,
+      "rotation": 2.4,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-04T01:36:02.274Z",
+      "device_hash": "dev_EHxVzosxqMPZfb5Jm3LyrwnG",
+      "edit_token_hash": "7d15339018d7942a0045722aae13edcf15ad94df7525dc5efd36866cfa55e1d0"
+    },
+    {
+      "id": "note_1793756159828_ru2m5",
+      "kind": "text",
+      "body": "ทดสอบปุ่มแปะสำเร็จ 1793756159428-5nnlj",
+      "color": "#fef08a",
+      "posX": 38,
+      "posY": 11,
+      "rotation": -3.6,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-04T01:35:59.828Z",
+      "device_hash": "dev_PvrmmHtAVrAZ65r8KXSZqKze",
+      "edit_token_hash": "d36d7d8864591f4462e69e6a60b928527c7aca3222d9bc454ae975954d2f2a33"
+    },
+    {
+      "id": "note_1793756157561_d7rr1",
+      "kind": "text",
+      "body": "โพสต์อิทแผ่นใหม่ล่าสุด 1793756157062: อยู่ด้านบนสุดเสมอ!",
+      "color": "#fef08a",
+      "posX": 9,
+      "posY": 61,
+      "rotation": -3.4,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-04T01:35:57.562Z",
+      "device_hash": "dev_Q3IIR78XdTYPT3DzygAPAoyx",
+      "edit_token_hash": "bf8c16341e7f1f8c7dfc6167c93803ea6690ea039e1fd3d850e8de5b0a5b2bd3"
+    },
+    {
+      "id": "note_1793756156703_lty4q",
+      "kind": "text",
+      "body": "วันนี้แม่งเหนื่อยสัสๆ 1793756155800",
+      "color": "#fef08a",
+      "posX": 7,
+      "posY": 46,
+      "rotation": -3.1,
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0,
+      "reaction_counts": {
+        "heart": 0,
+        "hug": 0,
+        "sparkle": 0,
+        "cheer": 0,
+        "idea": 0
+      },
+      "created_at": "2026-11-04T01:35:56.703Z",
+      "device_hash": "dev_o7KavvivvzpGhAb513ra4rY8",
+      "edit_token_hash": "8df3d7251c10af08067b330855f690e44d13161d8cc54f94df3bd3a54673dd48"
+    },
+    {
       "id": "note_1793755820522_dizg3",
       "kind": "text",
       "body": "ทดสอบปุ่มมือถือ 1793755820183-v2o7w",
@@ -360,7 +602,7 @@
       "posX": 40,
       "posY": 9,
       "rotation": 1.6,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -382,7 +624,7 @@
       "posX": 37,
       "posY": 11,
       "rotation": 0.6,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -404,7 +646,7 @@
       "posX": 6,
       "posY": 60,
       "rotation": -1.9,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -426,7 +668,7 @@
       "posX": 40,
       "posY": 10,
       "rotation": 2.2,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -448,7 +690,7 @@
       "posX": 37,
       "posY": 10,
       "rotation": -3.1,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -470,7 +712,7 @@
       "posX": 38,
       "posY": 11,
       "rotation": 0.9,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -492,7 +734,7 @@
       "posX": 40,
       "posY": 11,
       "rotation": -3.5,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -514,7 +756,7 @@
       "posX": 40,
       "posY": 11,
       "rotation": 1.7,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -536,7 +778,7 @@
       "posX": 36,
       "posY": 10,
       "rotation": -3.4,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -558,7 +800,7 @@
       "posX": 36,
       "posY": 10,
       "rotation": -3.6,
-      "status": "visible",
+      "status": "fallen",
       "risk_flag": false,
       "report_count": 0,
       "reaction_counts": {
@@ -2047,6 +2289,27 @@
       "note_id": "note_1793755828662_aoygk",
       "action": "delete",
       "created_at": "2026-11-04T01:30:29.060Z"
+    },
+    {
+      "id": "adm_1793756172520",
+      "admin_id": "admin_user",
+      "note_id": "note_1793756170220_v3353",
+      "action": "delete",
+      "created_at": "2026-11-04T01:36:12.520Z"
+    },
+    {
+      "id": "adm_1793756174938",
+      "admin_id": "admin_user",
+      "note_id": "note_1793756174522_o2lps",
+      "action": "delete",
+      "created_at": "2026-11-04T01:36:14.938Z"
+    },
+    {
+      "id": "adm_1793756181016",
+      "admin_id": "admin_user",
+      "note_id": "note_1793756180583_y0xxv",
+      "action": "delete",
+      "created_at": "2026-11-04T01:36:21.016Z"
     }
   ],
   "chat_messages": [
@@ -2645,6 +2908,200 @@
       "status": "visible",
       "risk_flag": false,
       "report_count": 0
+    },
+    {
+      "id": "chat_1793756006941_yc6zo",
+      "author_name": "นักทดสอบ",
+      "avatar": "🐱",
+      "avatar_bg": "#fed7aa",
+      "content": "ทดสอบส่งข้อความ 1793756006888",
+      "created_at": "2026-11-04T01:33:26.941Z",
+      "likes": 0,
+      "liked_by": [],
+      "device_hash": "test_dev_123",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793756140790_yz8gm",
+      "author_name": "นกฮูกกะดึก",
+      "avatar": "🐼",
+      "avatar_bg": "#e9d5ff",
+      "content": "ข้อความแชททดสอบไม่หาย 1793756140239-6zaa",
+      "created_at": "2026-11-04T01:35:40.790Z",
+      "likes": 0,
+      "liked_by": [],
+      "device_hash": "dev_9gvSXgLJ7vu1Pk8lQFBBmRsV",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793756140820_c37ft",
+      "author_name": "แมวส้มตัวตึงห้อง 3",
+      "avatar": "🐸",
+      "avatar_bg": "#bbf7d0",
+      "content": "ข้อความแชททดสอบไม่หาย 1793756140251-mnuk",
+      "created_at": "2026-11-04T01:35:40.820Z",
+      "likes": 0,
+      "liked_by": [],
+      "device_hash": "dev_rZrJlmcJk0Pm2PKd40TQU6E6",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793756140891_6t69j",
+      "author_name": "คุณดาวตกผู้อ่อนโยน",
+      "avatar": "🐱",
+      "avatar_bg": "#bae6fd",
+      "content": "ข้อความแชททดสอบไม่หาย 1793756140277-kwyy",
+      "created_at": "2026-11-04T01:35:40.891Z",
+      "likes": 0,
+      "liked_by": [],
+      "device_hash": "dev_jJO0dX0ruxAwINcNFoUYNjPj",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793756141229_26xmt",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#fbcfe8",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793756141119",
+      "created_at": "2026-11-04T01:35:41.229Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_VRxagRDZ7UW7jK172KAOoe3J"
+      ],
+      "device_hash": "dev_VRxagRDZ7UW7jK172KAOoe3J",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793756141392_el760",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#fed7aa",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793756141178",
+      "created_at": "2026-11-04T01:35:41.392Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_k02WnrDzFzYP9cBtl2NOb00t"
+      ],
+      "device_hash": "dev_k02WnrDzFzYP9cBtl2NOb00t",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793756141453_8rpgg",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#fecdd3",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793756141279",
+      "created_at": "2026-11-04T01:35:41.453Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_UNOIMS2MSK4xvk4g0cqsFDNB"
+      ],
+      "device_hash": "dev_UNOIMS2MSK4xvk4g0cqsFDNB",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793756158171_7oqsk",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#bae6fd",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793756157512",
+      "created_at": "2026-11-04T01:35:58.171Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_yP3Q0wFscd0RakmQHl88uwVO"
+      ],
+      "device_hash": "dev_yP3Q0wFscd0RakmQHl88uwVO",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793756159093_l5xmz",
+      "author_name": "จิ้งจอกนักฝัน",
+      "avatar": "⭐",
+      "avatar_bg": "#fbcfe8",
+      "content": "ข้อความแชททดสอบไม่หาย 1793756158081-7q7z",
+      "created_at": "2026-11-04T01:35:59.093Z",
+      "likes": 0,
+      "liked_by": [],
+      "device_hash": "dev_TPAzmzgJYv5VkPXgmjnYtPEM",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793756164870_ngbi3",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#fbcfe8",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793756164450",
+      "created_at": "2026-11-04T01:36:04.870Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_m8ayDnqnmRTwhebL27KTwVhf"
+      ],
+      "device_hash": "dev_m8ayDnqnmRTwhebL27KTwVhf",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793756165163_0vjsa",
+      "author_name": "แมวส้มตัวตึงห้อง 3",
+      "avatar": "🦉",
+      "avatar_bg": "#fed7aa",
+      "content": "ข้อความแชททดสอบไม่หาย 1793756164542-rciq",
+      "created_at": "2026-11-04T01:36:05.163Z",
+      "likes": 0,
+      "liked_by": [],
+      "device_hash": "dev_1qBlidr5mRzRn1C9z22fi1kI",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793756171842_2g98s",
+      "author_name": "กระต่ายทดสอบ e2e",
+      "avatar": "🐼",
+      "avatar_bg": "#bbf7d0",
+      "content": "สวัสดีเพื่อนๆ ในห้องเรียน! 1793756171325",
+      "created_at": "2026-11-04T01:36:11.842Z",
+      "likes": 1,
+      "liked_by": [
+        "dev_YTNAsuiTnHJBZQrqO1LXmOOj"
+      ],
+      "device_hash": "dev_YTNAsuiTnHJBZQrqO1LXmOOj",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
+    },
+    {
+      "id": "chat_1793756171928_m5zqb",
+      "author_name": "สายลมริมหน้าต่าง",
+      "avatar": "⭐",
+      "avatar_bg": "#fecdd3",
+      "content": "ข้อความแชททดสอบไม่หาย 1793756171277-tf9e",
+      "created_at": "2026-11-04T01:36:11.928Z",
+      "likes": 0,
+      "liked_by": [],
+      "device_hash": "dev_DijeukR567fgeQWiF2Y4lmjX",
+      "status": "visible",
+      "risk_flag": false,
+      "report_count": 0
     }
   ],
   "allow_profanity": true,
@@ -2714,6 +3171,12 @@
     "note_1793755818598_7nb02",
     "note_1793755820027_ygqtj",
     "note_1793755823176_kjqcv",
-    "note_1793755828662_aoygk"
+    "note_1793755828662_aoygk",
+    "note_1793756159751_9ai4l",
+    "note_1793756165361_hu0sf",
+    "note_1793756170220_v3353",
+    "note_1793756172028_5zfvy",
+    "note_1793756174522_o2lps",
+    "note_1793756180583_y0xxv"
   ]
 }
