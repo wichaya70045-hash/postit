@@ -288,17 +288,16 @@ export const db = {
     let posY = payload.posY;
 
     if (typeof posX !== 'number' || typeof posY !== 'number') {
-      // Calculate smart staggered slot: starts at top row and distributes downwards
-      // so notes never clump or pile up at the top on mobile or desktop!
+      // Free organic placement across the entire chalkboard
       const slotIndex = currentActive.length;
-      const row = slotIndex % 4; // 4 vertical tiers
-      const col = Math.floor(slotIndex / 4) % 3; // 3 horizontal columns
+      const col = slotIndex % 5;
+      const row = Math.floor(slotIndex / 5) % 4;
 
-      const rowY = [11, 28, 46, 62][row] + (Math.floor(Math.random() * 4) - 2);
-      const colX = [8, 38, 66][col] + (Math.floor(Math.random() * 6) - 3);
+      const colX = 5 + col * 17 + (Math.floor(Math.random() * 8) - 4);
+      const rowY = 8 + row * 19 + (Math.floor(Math.random() * 8) - 4);
 
-      if (typeof posX !== 'number') posX = Math.max(5, Math.min(75, colX));
-      if (typeof posY !== 'number') posY = Math.max(8, Math.min(68, rowY));
+      if (typeof posX !== 'number') posX = Math.max(2, Math.min(88, colX));
+      if (typeof posY !== 'number') posY = Math.max(4, Math.min(84, rowY));
     }
 
     const newRecord: Note & { edit_token_hash: string } = {
@@ -343,8 +342,8 @@ export const db = {
     const data = loadLocalDB();
     const note = data.notes.find((n) => n.id === id);
     if (!note) return false;
-    note.posX = Math.max(0, Math.min(90, posX));
-    note.posY = Math.max(0, Math.min(90, posY));
+    note.posX = Math.max(0.5, Math.min(95, posX));
+    note.posY = Math.max(1, Math.min(95, posY));
     saveLocalDB(data);
     return true;
   },

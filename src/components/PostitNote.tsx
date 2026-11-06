@@ -15,6 +15,8 @@ interface PostitNoteProps {
   isFalling?: boolean;
   isAdmin?: boolean;
   onAdminDelete?: (id: string) => void;
+  onPositionChange?: (id: string, posX: number, posY: number) => void;
+  containerRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 function formatRelativeTime(dateString: string): string {
@@ -36,7 +38,20 @@ export const PostitNote: React.FC<PostitNoteProps> = ({
   isFalling = false,
   isAdmin = false,
   onAdminDelete,
+  onPositionChange,
+  containerRef,
 }) => {
+  const [isPointerDragging, setIsPointerDragging] = React.useState(false);
+  const [dragOffset, setDragOffset] = React.useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const pointerStartRef = React.useRef<{
+    startX: number;
+    startY: number;
+    noteX: number;
+    noteY: number;
+    pointerId: number;
+    hasMoved: boolean;
+  } | null>(null);
+
   const totalReactions =
     (note.reaction_counts?.heart || 0) +
     (note.reaction_counts?.hug || 0) +
@@ -56,14 +71,113 @@ export const PostitNote: React.FC<PostitNoteProps> = ({
 
   const noteColor = note.color || '#fef08a';
 
+  // Smooth Pointer Drag Handling (Works seamlessly on Mobile Touch & Desktop Mouse)
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (isFalling || !isAbsolute) return;
+    const target = e.target as HTMLElement;
+    if (target.closest('button') || target.closest('a')) return;
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+
+    try {
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    } catch {}
+
+    pointerStartRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      noteX: note.posX,
+      noteY: note.posY,
+      pointerId: e.pointerId,
+      hasMoved: false,
+    };
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const start = pointerStartRef.current;
+    if (!start || start.pointerId !== e.pointerId) return;
+
+    const deltaX = e.clientX - start.startX;
+    const deltaY = e.clientY - start.startY;
+
+    if (!start.hasMoved && Math.hypot(deltaX, deltaY) > 5) {
+      start.hasMoved = true;
+      setIsPointerDragging(true);
+    }
+
+    if (start.hasMoved) {
+      const container = containerRef?.current || (e.currentTarget.parentElement as HTMLElement);
+      if (container) {
+        const rect = container.getBoundingClientRect();
+        const deltaPercentX = (deltaX / rect.width) * 100;
+        const deltaPercentY = (deltaY / rect.height) * 100;
+
+        // Expanded free boundaries across the chalkboard (0.5% - 92% X, 1% - 88% Y)
+        const newX = Math.max(0.5, Math.min(92, Number((start.noteX + deltaPercentX).toFixed(1))));
+        const newY = Math.max(1, Math.min(88, Number((start.noteY + deltaPercentY).toFixed(1))));
+        setDragOffset({ x: newX - start.noteX, y: newY - start.noteY });
+      }
+    }
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    const start = pointerStartRef.current;
+    if (!start || start.pointerId !== e.pointerId) return;
+
+    try {
+      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    } catch {}
+
+    const wasDragging = start.hasMoved;
+    pointerStartRef.current = null;
+
+    if (wasDragging) {
+      const container = containerRef?.current || (e.currentTarget.parentElement as HTMLElement);
+      if (container && onPositionChange) {
+        const rect = container.getBoundingClientRect();
+        const deltaX = e.clientX - start.startX;
+        const deltaY = e.clientY - start.startY;
+        const deltaPercentX = (deltaX / rect.width) * 100;
+        const deltaPercentY = (deltaY / rect.height) * 100;
+
+        const finalX = Math.max(0.5, Math.min(92, Number((start.noteX + deltaPercentX).toFixed(1))));
+        const finalY = Math.max(1, Math.min(88, Number((start.noteY + deltaPercentY).toFixed(1))));
+
+        onPositionChange(note.id, finalX, finalY);
+      }
+      setIsPointerDragging(false);
+      setDragOffset({ x: 0, y: 0 });
+    } else {
+      setIsPointerDragging(false);
+      setDragOffset({ x: 0, y: 0 });
+      if (onClick) onClick();
+    }
+  };
+
+  const handlePointerCancel = () => {
+    pointerStartRef.current = null;
+    setIsPointerDragging(false);
+    setDragOffset({ x: 0, y: 0 });
+  };
+
+  const currentPosX = isPointerDragging ? Number((note.posX + dragOffset.x).toFixed(1)) : note.posX;
+  const currentPosY = isPointerDragging ? Number((note.posY + dragOffset.y).toFixed(1)) : note.posY;
+
   const absoluteStyle: React.CSSProperties = isAbsolute
     ? {
         position: 'absolute',
-        left: `${note.posX}%`,
-        top: `${note.posY}%`,
-        transform: `rotate(${note.rotation}deg)`,
+        left: `${currentPosX}%`,
+        top: `${currentPosY}%`,
+        transform: isPointerDragging
+          ? `scale(1.06) rotate(${note.rotation * 0.3}deg)`
+          : `rotate(${note.rotation}deg)`,
         backgroundColor: noteColor,
-        zIndex: zIndex ?? 10,
+        zIndex: isPointerDragging ? 999 : (zIndex ?? 10),
+        touchAction: 'none',
+        cursor: isPointerDragging ? 'grabbing' : 'grab',
+        boxShadow: isPointerDragging
+          ? '0 24px 38px -4px rgba(0, 0, 0, 0.55), 0 12px 18px -4px rgba(0, 0, 0, 0.45)'
+          : undefined,
+        transition: isPointerDragging ? 'none' : 'transform 0.15s ease-out, box-shadow 0.15s ease-out',
       }
     : {
         transform: `rotate(${note.rotation}deg)`,
@@ -72,15 +186,18 @@ export const PostitNote: React.FC<PostitNoteProps> = ({
 
   return (
     <div
-      onClick={isFalling ? undefined : onClick}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerCancel}
       draggable={Boolean(onDragStart && !isFalling)}
       onDragStart={isFalling ? undefined : onDragStart}
       role="button"
       tabIndex={0}
       style={absoluteStyle}
-      className={`group cursor-pointer transition-all duration-200 active:scale-95 hover:scale-[1.03] hover:!z-50 rounded-md p-2 sm:p-3 md:p-3.5 postit-shadow flex flex-col justify-between aspect-square select-none overflow-hidden border border-black/10 ${
+      className={`group select-none transition-all duration-200 active:scale-95 hover:scale-[1.03] hover:!z-50 rounded-md p-2 sm:p-3 md:p-3.5 postit-shadow flex flex-col justify-between aspect-square overflow-hidden border border-black/10 ${
         isAbsolute ? 'w-[122px] xs:w-[138px] sm:w-[175px] md:w-[210px]' : 'w-full'
-      } ${isFalling ? 'animate-paper-fall' : ''} ${className}`}
+      } ${isFalling ? 'animate-paper-fall' : ''} ${isPointerDragging ? 'ring-2 ring-amber-400 ring-offset-2' : ''} ${className}`}
     >
       {/* Decorative Washi Tape on top */}
       <div

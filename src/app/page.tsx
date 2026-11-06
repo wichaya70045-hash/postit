@@ -52,6 +52,8 @@ export default function HomePage() {
   });
   const [loading, setLoading] = useState<boolean>(true);
   const [isComposerOpen, setIsComposerOpen] = useState<boolean>(false);
+  const [targetPlacement, setTargetPlacement] = useState<{ x: number; y: number } | null>(null);
+  const [isPickingPlacement, setIsPickingPlacement] = useState<boolean>(false);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [draggedNotePayload, setDraggedNotePayload] = useState<Partial<CreateNotePayload> | null>(null);
@@ -174,6 +176,50 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, [currentTab, isComposerOpen, fallingNoteIds, deletedNoteIds]);
 
+  // Move note position freely on the chalkboard (Pointer Events & HTML5 Drop)
+  const handleNotePositionChange = (id: string, posX: number, posY: number) => {
+    // Optimistically update position and elevate to top of the stack
+    setNotes((prev) => {
+      const target = prev.find((n) => n.id === id);
+      if (!target) return prev;
+      const updated = { ...target, posX, posY };
+      return [updated, ...prev.filter((n) => n.id !== id)];
+    });
+
+    fetch(`/api/notes/${id}/position`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ posX, posY }),
+    }).catch(() => {});
+  };
+
+  // Click directly on chalkboard to place a post-it anywhere
+  const handleChalkboardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!boardRef.current) return;
+    const rect = boardRef.current.getBoundingClientRect();
+    const rawX = ((e.clientX - rect.left) / rect.width) * 100;
+    const rawY = ((e.clientY - rect.top) / rect.height) * 100;
+
+    // Center the post-it around click position
+    const posX = Math.max(0.5, Math.min(88, Number((rawX - 5).toFixed(1))));
+    const posY = Math.max(1, Math.min(84, Number((rawY - 5).toFixed(1))));
+
+    if (isPickingPlacement) {
+      setTargetPlacement({ x: posX, y: posY });
+      setIsPickingPlacement(false);
+      setIsComposerOpen(true);
+      return;
+    }
+
+    const target = e.target as HTMLElement;
+    if (target.closest('.postit-shadow') || target.closest('button') || target.closest('a')) {
+      return;
+    }
+
+    setTargetPlacement({ x: posX, y: posY });
+    setIsComposerOpen(true);
+  };
+
   // Handle Drag Over Chalkboard
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -182,7 +228,7 @@ export default function HomePage() {
     const rect = boardRef.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setDragOverPos({ x: Math.max(2, Math.min(85, x)), y: Math.max(2, Math.min(85, y)) });
+    setDragOverPos({ x: Math.max(0.5, Math.min(92, x)), y: Math.max(1, Math.min(88, y)) });
   };
 
   // Handle Drop onto Chalkboard
@@ -192,20 +238,13 @@ export default function HomePage() {
     if (!boardRef.current) return;
 
     const rect = boardRef.current.getBoundingClientRect();
-    const posX = Math.max(2, Math.min(85, Number((((e.clientX - rect.left) / rect.width) * 100).toFixed(1))));
-    const posY = Math.max(2, Math.min(85, Number((((e.clientY - rect.top) / rect.height) * 100).toFixed(1))));
+    const posX = Math.max(0.5, Math.min(92, Number((((e.clientX - rect.left) / rect.width) * 100).toFixed(1))));
+    const posY = Math.max(1, Math.min(88, Number((((e.clientY - rect.top) / rect.height) * 100).toFixed(1))));
 
     // Moving existing note
     const movingNoteId = e.dataTransfer.getData('note-id');
     if (movingNoteId) {
-      setNotes((prev) =>
-        prev.map((n) => (n.id === movingNoteId ? { ...n, posX, posY } : n))
-      );
-      fetch(`/api/notes/${movingNoteId}/position`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ posX, posY }),
-      }).catch(() => {});
+      handleNotePositionChange(movingNoteId, posX, posY);
       return;
     }
 
@@ -504,16 +543,21 @@ export default function HomePage() {
               {/* Wooden Chalkboard Frame with Green Chalk Surface */}
               <div
                 ref={boardRef}
+                onClick={handleChalkboardClick}
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
-                className="relative flex-1 w-full min-h-[70vh] sm:min-h-[82vh] rounded-xl sm:rounded-2xl chalkboard-frame bg-chalkboard overflow-hidden transition-colors"
+                className="relative flex-1 w-full min-h-[70vh] sm:min-h-[82vh] rounded-xl sm:rounded-2xl chalkboard-frame bg-chalkboard overflow-hidden transition-colors cursor-crosshair"
+                title="แตะหรือคลิกจุดไหนบนกระดานเพื่อเลือกตำแหน่งแปะโพสต์อิทได้เลย"
               >
                 {/* Vintage Classroom Chalk Corner Header */}
                 <div className="absolute top-2 left-2.5 sm:top-4 sm:left-6 z-10 pointer-events-none flex flex-col">
-                  <span className="chalk-font text-[10px] sm:text-sm tracking-wide opacity-80">
-                    กระดานห้องเรียน Yanin 🏫
+                  <span className="chalk-font text-[10px] sm:text-sm tracking-wide opacity-80 flex items-center gap-1.5 sm:gap-2">
+                    <span>กระดานห้องเรียน Yanin 🏫</span>
+                    <span className="text-[8px] sm:text-[10px] text-amber-200/90 bg-black/40 px-1.5 sm:px-2 py-0.2 sm:py-0.5 rounded-full border border-amber-600/40">
+                      ลากขยับอิสระ • แตะเพื่อเลือกจุดแปะ 📌
+                    </span>
                   </span>
-                  <span className="text-[9px] sm:text-xs text-stone-300/80 postit-handwriting hidden xs:inline">
+                  <span className="text-[9px] sm:text-xs text-stone-300/80 postit-handwriting hidden xs:inline mt-0.5">
                     {announcement || 'เวรประจำวัน: ช่วยกันส่งต่อรอยยิ้ม'}
                   </span>
                 </div>
@@ -523,6 +567,46 @@ export default function HomePage() {
                     วันอังคารที่ ๓ พ.ย. ๒๕๖๙
                   </span>
                 </div>
+
+                {/* Mode: Picking placement on chalkboard */}
+                {isPickingPlacement && (
+                  <>
+                    <div
+                      onClick={handleChalkboardClick}
+                      className="absolute inset-0 z-35 cursor-crosshair bg-amber-500/10 backdrop-blur-[0.5px]"
+                      title="แตะจุดไหนบนกระดานก็ได้เพื่อวางโพสต์อิทตรงนี้"
+                    />
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 z-40 bg-amber-500 text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-2xl shadow-2xl border-2 border-amber-200 font-bold text-xs sm:text-sm flex items-center gap-2 sm:gap-3 animate-bounce select-none pointer-events-auto">
+                      <span>📍 แตะจุดไหนบนกระดานดำก็ได้เพื่อวางโพสต์อิท</span>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setIsPickingPlacement(false);
+                          setIsComposerOpen(true);
+                        }}
+                        className="bg-black/35 hover:bg-black/55 px-2 py-0.5 rounded-lg text-[10px] text-amber-100 font-semibold cursor-pointer"
+                      >
+                        ยกเลิก
+                      </button>
+                    </div>
+                  </>
+                )}
+
+                {/* Target Placement Pin Indicator */}
+                {targetPlacement && isComposerOpen && (
+                  <div
+                    className="absolute z-30 pointer-events-none transition-all flex flex-col items-center animate-bounce select-none"
+                    style={{ left: `${targetPlacement.x}%`, top: `${targetPlacement.y}%` }}
+                  >
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-400 border-2 border-white shadow-xl flex items-center justify-center text-sm">
+                      📌
+                    </div>
+                    <span className="text-[9px] sm:text-[10px] font-bold text-amber-100 bg-black/85 px-2 py-0.5 rounded-full mt-1 border border-amber-300 shadow-md">
+                      จะแปะตรงนี้ ✨
+                    </span>
+                  </div>
+                )}
 
                 {/* Drag over drop target indicator */}
                 {dragOverPos && (
@@ -547,6 +631,8 @@ export default function HomePage() {
                     isFalling={fallingNoteIds.has(note.id)}
                     isAdmin={isAdmin}
                     onAdminDelete={handleAdminDeleteNote}
+                    onPositionChange={handleNotePositionChange}
+                    containerRef={boardRef}
                     onDragStart={(e) => {
                       e.dataTransfer.setData('note-id', note.id);
                     }}
@@ -630,9 +716,19 @@ export default function HomePage() {
       {/* Composer Modal */}
       <ComposerModal
         isOpen={isComposerOpen}
-        onClose={() => setIsComposerOpen(false)}
+        targetPosition={targetPlacement}
+        onClearTargetPosition={() => setTargetPlacement(null)}
+        onStartPickPosition={() => {
+          setIsComposerOpen(false);
+          setIsPickingPlacement(true);
+        }}
+        onClose={() => {
+          setIsComposerOpen(false);
+          setTargetPlacement(null);
+        }}
         onPostSuccess={(newNote?: Note) => {
           setCurrentWall('front');
+          setTargetPlacement(null);
           if (newNote) {
             setNotes((prev) => [newNote, ...prev.filter((n) => n.id !== newNote.id)]);
           }

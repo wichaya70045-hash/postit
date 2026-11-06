@@ -13,6 +13,9 @@ interface ComposerModalProps {
   onClose: () => void;
   onPostSuccess: (note?: Note) => void;
   onStartDragNote?: (notePayload: Partial<CreateNotePayload>) => void;
+  targetPosition?: { x: number; y: number } | null;
+  onClearTargetPosition?: () => void;
+  onStartPickPosition?: () => void;
 }
 
 // Preset pastel favorites + custom color picker
@@ -34,6 +37,9 @@ export const ComposerModal: React.FC<ComposerModalProps> = ({
   onClose,
   onPostSuccess,
   onStartDragNote,
+  targetPosition,
+  onClearTargetPosition,
+  onStartPickPosition,
 }) => {
   const [tab, setTab] = useState<'text' | 'drawing'>('text');
   const [color, setColor] = useState<string>('#fef08a');
@@ -114,6 +120,8 @@ export const ComposerModal: React.FC<ComposerModalProps> = ({
         strokes: tab === 'drawing' ? drawingStrokes : undefined,
         caption: tab === 'drawing' ? caption.trim() : undefined,
         color,
+        posX: targetPosition?.x,
+        posY: targetPosition?.y,
         device_hash: deviceId,
         edit_token: editToken,
       };
@@ -221,6 +229,49 @@ export const ComposerModal: React.FC<ComposerModalProps> = ({
               <div className="p-2.5 sm:p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs rounded-xl flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>{piiError}</span>
+              </div>
+            )}
+
+            {/* Target Placement indicator on board */}
+            {targetPosition ? (
+              <div className="flex items-center justify-between px-3 py-2 bg-amber-100/90 dark:bg-amber-950/60 rounded-xl text-xs text-amber-950 dark:text-amber-200 border border-amber-300 dark:border-amber-700/60 shadow-2xs">
+                <span className="flex items-center gap-1.5 font-medium">
+                  <span className="text-sm">📌</span>
+                  <span>เลือกตำแหน่งแปะ: X {targetPosition.x}% • Y {targetPosition.y}%</span>
+                </span>
+                <div className="flex items-center gap-2">
+                  {onStartPickPosition && (
+                    <button
+                      type="button"
+                      onClick={onStartPickPosition}
+                      className="text-[11px] text-amber-800 dark:text-amber-300 font-semibold hover:underline"
+                    >
+                      เปลี่ยนจุด
+                    </button>
+                  )}
+                  {onClearTargetPosition && (
+                    <button
+                      type="button"
+                      onClick={onClearTargetPosition}
+                      className="text-[11px] text-stone-500 dark:text-stone-400 hover:underline"
+                    >
+                      สุ่มตำแหน่ง
+                    </button>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center justify-between px-3 py-1.5 bg-stone-100/80 dark:bg-stone-800/60 rounded-xl text-[11px] text-stone-600 dark:text-stone-300 border border-stone-200/80 dark:border-stone-700">
+                <span>💡 ทิป: เลือกจุดแปะบนกระดานได้อิสระ</span>
+                {onStartPickPosition && (
+                  <button
+                    type="button"
+                    onClick={onStartPickPosition}
+                    className="flex items-center gap-1 text-[11px] text-amber-700 dark:text-amber-400 font-semibold hover:underline cursor-pointer"
+                  >
+                    <span>📍 เลือกจุดบนกระดาน</span>
+                  </button>
+                )}
               </div>
             )}
 
